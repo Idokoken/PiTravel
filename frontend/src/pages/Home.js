@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Tablet, Desktop } from './../Responsive';
+import { Tablet } from './../Responsive';
 import styled from "styled-components";
 import SubscribeForm from "../components/SubscribeForm";
 import Stories from "../components/Stories";
