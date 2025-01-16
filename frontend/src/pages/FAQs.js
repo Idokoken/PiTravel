@@ -28,17 +28,17 @@ const Wrapper = styled.div`
 
 `
 
-function About() {
+function FAQs() {
     return (
         <Wrapper>
-         <div className="hero">
-              <h1>About Us</h1>
+        <div className="hero">
+              <h1>Faqs</h1>
             </div>
             <div className="container content py-3">
-               about us
+               faqs
             </div>
         </Wrapper>
     )
 }
 
-export default About
+export default FAQs

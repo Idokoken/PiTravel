@@ -22,23 +22,23 @@ const Wrapper = styled.div`
   	font-weight: 700;
   	color: white;
   }
+  
   .content{
   	min-height: 40vh;
   }
-
 `
 
-function About() {
+function MediaCenter() {
     return (
         <Wrapper>
-         <div className="hero">
-              <h1>About Us</h1>
+            <div className="hero">
+              <h1>Media Center</h1>
             </div>
             <div className="container content py-3">
-               about us
+               MediaCenter
             </div>
         </Wrapper>
     )
 }
 
-export default About
+export default MediaCenter

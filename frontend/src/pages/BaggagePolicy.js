@@ -28,17 +28,17 @@ const Wrapper = styled.div`
 
 `
 
-function About() {
+function BaggagePolicy() {
     return (
         <Wrapper>
-         <div className="hero">
-              <h1>About Us</h1>
+        <div className="hero">
+              <h1>Baggage Policy</h1>
             </div>
             <div className="container content py-3">
-               about us
+              Baggage Policy
             </div>
         </Wrapper>
     )
 }
 
-export default About
+export default BaggagePolicy

@@ -28,17 +28,18 @@ const Wrapper = styled.div`
 
 `
 
-function About() {
+function TermsAndConditions() {
     return (
         <Wrapper>
-         <div className="hero">
-              <h1>About Us</h1>
+          
+          <div className="hero">
+              <h1>terms and condition</h1>
             </div>
             <div className="container content py-3">
-               about us
+             terms and condition
             </div>
         </Wrapper>
     )
 }
 
-export default About
+export default TermsAndConditions

@@ -7,47 +7,52 @@ import { Tablet } from "../Responsive";
 const Wrapper = styled.footer`
   padding: 0;
   margin: 0;
-  font-family: "Poppins", sans-serif;
-  // background: white;
-  // color: black;
+  font-family: var(--primary-font);
+  background: black;
+  color: white;
 
   .footer {
     width: 100vw;
     display: flex;
     padding: 20px;
     flex-wrap: wrap;
-    border-top: 4px solid var(--primary-color);
   }
 
   .footer .item {
     flex: 100%;
-    ${Tablet({ flex: "33%" })}
+    ${Tablet({ flex: "23%" })}
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
     ${Tablet({ alignItems: "center" })}
+    
   }
   .footer .item .icon-header h3 {
     font-size: 30px;
-    font-family: 'Lora';
+    
+    font-family: "Oleo Script Swash Caps", serif;
     font-style: italic;
     font-weight: 700;
+    
   }
   .footer .item h3 {
     color: var(--primary-color);
     font-weight: 500;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
-  .rule {
-    border-top: 4px solid var(--primary-color);
+  .bottom {
+  	 background: var(--secondary-color);
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .copywite {
     margin: 10px;
-    font-family: "Oleo Script Swash Caps", cursive;
+    font-family: "Abril Fatface", serif;
     ${Tablet({ fontSize: "20px" })}
   }
-  .footer-logo{
+ .footer-logo{
     width: 30px;
     height: 30px;
   }
@@ -69,12 +74,18 @@ const Wrapper = styled.footer`
     align-items: center;
     height: 40px;
     width: 40px;
-    border-radius: 5px;
-  }
-  .icon {
+    border-radius: 50%;
+    border: 2px solid black;
     margin-right: 20px;
+  }
+  .icon {  
     height: 100%;
     width: 100%;
+  }
+  .ruler{
+  	  color: var(--secondary-color);
+  	  border: 3px solid var(--secondary-color);
+  	  width: 50%;
   }
   a {
     text-decoration: none;
@@ -95,14 +106,53 @@ function Footer() {
             <img className="footer-logo" src="/images/brand.png" alt="brand" />{" "}
             <h3 className="ms-2">PiTravel</h3>
           </div>
-          {/* <p>
-            Empower, Protect, Prevail
-          </p> */}
           <p>Bringing You closer to your destination</p>
+          
+          <h4>Follow Us</h4>
+          <div className="icons-container">
+          <Link className="icon-container" to="/">
+              <img className="icon" src="/images/x.png" alt="x" />
+            </Link>
+            <Link className="icon-container" to="/">
+              <img className="icon" src="/images/facebook2.png" alt="facebook" />
+            </Link>
+
+            <Link className="icon-container" to="/">
+              <img className="icon" src="/images/instagram2.jpeg" alt="instagram" />
+            </Link>
+            <Link className="icon-container" to="/">
+              <img className="icon" src="/images/youtube.png" alt="youtube" />
+            </Link>
+
+          </div>
+          
         </div>
 
         <div className="item">
-          <h3>Quick Links</h3>
+          <h3>Information</h3>
+          <hr className="ruler" />
+          <p>
+            <Link to="/faqs">FAQs</Link>
+          </p>
+          <p>
+            <Link to="/terms">Terms & Conditions</Link>
+          </p>
+          <p>
+            <Link to="/routes">Routes</Link>
+          </p>
+             <p>
+            <Link to="/departure-arrivals">Departure & Arrivals</Link>
+          </p>
+          <p>
+            <Link to="/baggage-policy">Gaggage Allowance</Link>
+          </p>
+
+        </div>
+       
+        
+        <div className="item">
+          <h3>About Us</h3>
+          <hr className="ruler" />
           <p>
             <Link to="/">Home</Link>
           </p>
@@ -113,25 +163,36 @@ function Footer() {
             <Link to="/about">About Us</Link>
           </p>
           <p>
-            <Link to="/gallery">Gallery</Link>
+            <Link to="/Careers">Careers</Link>
+          </p>
+          <p>
+            <Link to="/media-center">Media Center</Link>
+          </p>
+
+        </div>       
+        
+        <div className="item">
+          <h3>Book</h3>
+          <hr className="ruler" />
+          <p>
+            <Link to="/bookings">Book Flight</Link>
+          </p>
+          <p>
+            <Link to="/travel-services">Travel Services</Link>
+          </p>
+          <p>
+            <Link to="/transportation">Transportation</Link>
+          </p>
+          <p>
+            <Link to="/search-flight">Search for Flight</Link>
           </p>
 
         </div>
-        <div className="item">
-          <h3>Follow Us</h3>
-          <div className="icons-container">
-
-            <Link className="icon-container" to="/">
-              <img className="icon" src="/images/linkedin.png" alt="linkedIn" />
-            </Link>
-            <Link className="icon-container" to="/">
-              <img className="icon" src="/images/youtube.png" alt="youtube" />
-            </Link>
-
-          </div>
-        </div>
+          
       </div>
-      <div className="rule">
+      
+      
+      <div className="bottom">
         <p className="copywite">
           All Right reversed &copy; PiTravel 2024{" "}
 

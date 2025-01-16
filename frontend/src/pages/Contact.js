@@ -1,13 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from "react-router-dom";
+import { Tablet } from "../Responsive";
+
 
 const Wrapper = styled.div`
+  .hero{
+  	width: 100%;
+  	height: 20vh;
+  	background: var(--secondary-color);
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	padding: 20px;
+  }
+  
+  .hero h1{
+  	font-weight: 700;
+  	color: white;
+  }
+  
 .contact{
    display: flex;
    justify-content: center;
    align-items: center;
    flex-direction: column;
-   padding: 20px;J
+   padding: 20px;
 }
 .contact h2{
     color: rgba(0, 0, 0, 0.5);
@@ -69,8 +87,12 @@ const Wrapper = styled.div`
 
 function Contact() {
     return (
-        <div>
-            <h2>Contact Us</h2>
+     <Wrapper>
+       <div className="hero">
+              <h1>Contact Us</h1>
+            </div>
+        <div className="container py-3">
+           
             <h5 className="my-2 mx-1">Better yet, see us in person!</h5>
             <p className="my-3">If you have questions about the opportunities available to you in our program, send us a message.
                 We will get back to you as soon as possible.
@@ -104,9 +126,11 @@ function Contact() {
                     </div>
                 </div>
             </div>
-            <Link to='https://forms.gle/Wi9t9hVjmgmtUqmX8' target="_blanck" className="my-2" >Get in Touch</Link>
+            <Link to='' target="_blanck" className="my-2" >Get in Touch</Link>
 
         </div>
+        
+        </Wrapper>
     )
 }
 

@@ -1,18 +1,23 @@
-#  DaShop Website
+#  PiTravel Website
 
 ## Usage
-This is a website for ordering Products.
+This is a website for booking flight ticket.
 
 ## Description
 
-DAshop is a comprehensive e-commerce platform designed to provide a seamless online shopping experience. Built with [insert technologies,  DAshop offers a user-friendly interface, secure payment gateway, and efficient order management system
+PiTravel is a flight booking application platform developed to provide a seamless online reservation of plane ticket. Built with Java and React,  Pitravel offers a user-friendly interface, secure payment gateway, and efficient and seamless booking process. 
+
 ## Technology used
 
-The website was developed using fullstack Java technology, Spring Boot and some other Technologies like
+The technologies used for developing the backend includes
+1. Java
+2. Spring framework
+3. MySql
+4. some external dependencies like Spring Web, Spring Security, Spring Data Jpa, Lombok etc
+
+The technologies used for developing the frontend includes
+1. React(Javascript)
 1. CSS
 2. Bootstrap Framework
-3. MySql
-4. some external dependencies like Spring Web, Thymeleaf, Spring Security, Spring Data Jpa, Lombok etc
 
-
-<!-- The hosted(live) website can be viewed on **[https://dashop.render.com](https://dashop.render.com)**. -->
+<!-- The hosted(live) website can be viewed on **[https://pitravel.netlify.app](https://pitravel.netlify.app)**. -->
