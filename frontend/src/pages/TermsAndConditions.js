@@ -11,7 +11,8 @@ const Wrapper = styled.div`
   .hero{
   	width: 100%;
   	height: 20vh;
-  	background: var(--secondary-color);
+  	// background: var(--secondary-color);
+    background: linear-gradient(92.05deg, #B02323 61.11%, #2670DF 98.82%);
   	display: flex;
   	justify-content: center;
   	align-items: center;
@@ -29,17 +30,17 @@ const Wrapper = styled.div`
 `
 
 function TermsAndConditions() {
-    return (
-        <Wrapper>
-          
-          <div className="hero">
-              <h1>terms and condition</h1>
-            </div>
-            <div className="container content py-3">
-             terms and condition
-            </div>
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+
+      <div className="hero">
+        <h1>terms and condition</h1>
+      </div>
+      <div className="container content py-3">
+        terms and condition
+      </div>
+    </Wrapper>
+  )
 }
 
 export default TermsAndConditions

@@ -11,6 +11,8 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import FlightRoutes from "./pages/FlightRoutes"
 import MediaCenter from "./pages/MediaCenter"
 import BaggagePolicy from "./pages/BaggagePolicy"
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 import ScrollToTop from "./ScrollToTop"
 
@@ -20,24 +22,27 @@ function App() {
     <Router>
 
       <Header />
-      
+
       <ScrollToTop />
-      
+
       <Routes>
         <Route path="/" element={<Home />} />
-       <Route path="/contact" element={<Contact />} />  
-       <Route path="/about" element={<About />} />  
-       <Route path="/careers" element={<Careers />} />  
-       <Route path="/faqs" element={<FAQs />} /> 
-        <Route path="/routes" element={<FlightRoutes />} />  
-       <Route path="/terms" element={<TermsAndConditions />} /> 
-        <Route path="/media-center" element={<MediaCenter />} /> 
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/routes" element={<FlightRoutes />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/media-center" element={<MediaCenter />} />
         <Route path="/baggage-policy" element={<BaggagePolicy />} />
-        
+        <Route path="/signup" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+
+
         <Route path="*" element={<ErrorPage />} />
-        
+
       </Routes>
-      
+
       <Footer />
     </Router>
   );

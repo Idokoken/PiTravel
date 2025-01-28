@@ -79,7 +79,7 @@ function Header({ user }) {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/gallery">
+                                <Link className="nav-link" to="/routes">
                                     Routes
                                 </Link>
                             </li>

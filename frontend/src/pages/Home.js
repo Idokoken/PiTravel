@@ -28,9 +28,9 @@ const Wrapper = styled.div`
   .hero {
   position: relative;
   z-index: -2;
-  height: 60vh;
+  height: 50vh;
   width: 100%;
-  background-image: url("/images/home.jpg");
+  background-image: url("/images/items/home.png");
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -38,13 +38,13 @@ const Wrapper = styled.div`
   align-items: center;
   color: white;
   padding: 20px;
-  ${Tablet({ height: '85vh' })}
+  ${Tablet({ height: '70vh' })}
   }
   .hero .hero-bg{
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     z-index: -1;
 }
   .hero h1 {
@@ -91,10 +91,18 @@ const Home = () => {
         <div className='hero-bg'></div>
         <h1>travel Safely with PiTravel</h1>
         <p>
-          Exploring the world with PiTravel.
+          Exploring the world with PiTravel
         </p>
         <Link to="/" className="">BOOK YOUR TICKET NOW</Link>
       </div>
+
+      <section className="bookings">
+
+      </section>
+
+      <section className="holidays">
+        <h3>Explore </h3>
+      </section>
 
 
 
