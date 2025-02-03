@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { Link } from "react-router-dom";
 import { Tablet } from './../Responsive';
 import styled from "styled-components";
 
@@ -7,13 +6,19 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`;
   margin: 0;
-  padding: 20px 5px;
+  padding: 30px;
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: var(--secondary-color);
   ${Tablet({ flexDirection: 'row' })}
+  
+  h3{
+  	  color: white;
+  	  text-align: center;
+  }
 
   form button{
     padding: 5px 10px;
@@ -29,7 +34,7 @@ const Wrapper = styled.div`;
     form input{
     padding: 3px 10px;;
     font-weight: 500;
-    border-radius: 5px;
+    border-radius: 5px 40px 40px 5px;
     border: 2px solid rgba(0, 0, 0, 0.4);
     text-decoration: none;
   }
@@ -63,7 +68,8 @@ function SubscribeForm() {
 
   return (
     <Wrapper>
-      <h3>Join Our Mailing list</h3>
+      <h3>If you’d like to receive news about travel schedules, events ot special offerings
+      </h3>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
