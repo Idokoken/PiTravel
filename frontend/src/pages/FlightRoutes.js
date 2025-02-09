@@ -26,6 +26,9 @@ const Wrapper = styled.div`
   .content{
   	min-height: 40vh;
   }
+  h3{
+  	font-weight: 700;
+  }
 
 `
 
@@ -36,7 +39,12 @@ function FlightRoutes() {
         <h1>flight routes</h1>
       </div>
       <div className="container content py-3">
-        flight routes
+        <h3>Domestic Routes</h3>
+        <div className=""></div>
+        <h3>Regional Routes</h3>
+        <div className=""></div>
+        <h3>International Routes</h3>
+        <div className=""></div>
       </div>
     </Wrapper>
   )

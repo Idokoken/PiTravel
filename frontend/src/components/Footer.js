@@ -140,9 +140,7 @@ function Footer() {
           <p>
             <Link to="/routes">Routes</Link>
           </p>
-             <p>
-            <Link to="/departure-arrivals">Departure & Arrivals</Link>
-          </p>
+          
           <p>
             <Link to="/baggage-policy">Gaggage Allowance</Link>
           </p>
@@ -194,7 +192,7 @@ function Footer() {
       
       <div className="bottom">
         <p className="copywite">
-          All Right reversed &copy; PiTravel 2024{" "}
+          All Right reversed &copy; PiTravel {new Date().getFullYear()}
 
         </p>
       </div>

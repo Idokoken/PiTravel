@@ -40,6 +40,10 @@ const Wrapper = styled.div`
   	color: var(--primary-color);
   	font-weight: 700;
   }
+  .news{
+  	padding: 20px 0;
+  }
+  
 `
 
 function MediaCenter() {
@@ -48,18 +52,45 @@ function MediaCenter() {
       <div className="hero">
         <h1>Media Center</h1>
       </div>
-      <div className="container content py-3">
+      
+      <div className="container content p-3">
         <div className="all-news">
+        
           <div className="news">
             <div className="img-container">
               <img src="/images/items/news.jpeg" alt="news" />
             </div>
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a rutrum urna, ut ornare neque
+            <h4>Heading 1, Lorem ipsum dolor sit amet, consectetur adipiscing elit
             </h4>
             <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a rutrum urna, ut ornare neque. Cras id est mi. Nunc in finibus felis. Nulla laoreet, eros eget posuere lacinia, purus lacus ultricies leo, vitae aliquet arcu dui vel diam. Vestibulum maximus mi in arcu sagittis, eu eleifend orci ullamcorper. Nullam a elementum ipsum, eu dignissim turpis. Integer rhoncus cursus lacus, sit amet sodales justo pretium eu. Nulla in dolor nisl. Morbi sit amet varius lorem.
             </p>
           </div>
+          
+          <div className="news">
+            <div className="img-container">
+              <img src="/images/items/news2.jpeg" alt="news" />
+            </div>
+            <h4> heading 2, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            </h4>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a rutrum urna, ut ornare neque. Cras id est mi. Nunc in finibus felis. Nulla laoreet, eros eget posuere lacinia, purus lacus ultricies leo, vitae aliquet arcu dui vel diam. Vestibulum maximus mi in arcu sagittis, eu eleifend orci ullamcorper. Nullam a elementum ipsum, eu dignissim turpis. Integer rhoncus cursus lacus, sit amet sodales justo pretium eu. Nulla in dolor nisl. Morbi sit amet varius lorem.
+            </p>
+          </div>
+          
+          <div className="news">
+            <div className="img-container">
+              <img src="/images/items/news3.jpeg" alt="news" />
+            </div>
+            <h4>heading 3, Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </h4>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a rutrum urna, ut ornare neque. Cras id est mi. Nunc in finibus felis. Nulla laoreet, eros eget posuere lacinia, purus lacus ultricies leo, vitae aliquet arcu dui vel diam. Vestibulum maximus mi in arcu sagittis, eu eleifend orci ullamcorper. Nullam a elementum ipsum, eu dignissim turpis. Integer rhoncus cursus lacus, sit amet sodales justo pretium eu. Nulla in dolor nisl. Morbi sit amet varius lorem.
+            </p>
+          </div>
+          
+          
+          
         </div>
       </div>
     </Wrapper>
