@@ -1,12 +1,16 @@
-package com.ndgroups.Ahom.service;
+package ndgroups.PiTravel.service;
 
-import com.ndgroups.Ahom.exception.OurException;
-import com.ndgroups.Ahom.repository.UserRepository;
+import ndgroups.PiTravel.model.CustomUserDetails;
+import ndgroups.PiTravel.model.User;
+import ndgroups.PiTravel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -14,9 +18,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("In the user details service");
-        return userRepository.findByEmail(username).orElseThrow(
-                () -> new OurException("invalid email"));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user  = Optional.ofNullable(userRepository.findByEmail(email))
+                .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+        return CustomUserDetails.buildUserDetails(user);
     }
+
+
 }

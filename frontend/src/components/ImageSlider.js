@@ -1,9 +1,9 @@
-import React from 'react'
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useState, useEffect } from 'react'
 import { Tablet } from './../Responsive';
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Image1 from "./items/image1.png"
+import Image2 from "./items/image2.png"
 
 const Wrapper = styled.div`
   min-height: 50vh;
@@ -12,109 +12,117 @@ const Wrapper = styled.div`
   font-family: "Poppins", sans-serif;
 
 
-  .slider-container {
+ .slider-container {
   position: relative;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
 
-.slider-item {
+.slider {
+  width: 100vw;
+  height: 50vh;
+  overflow: hidden;
   position: relative;
+   ${Tablet({ height: '70vh' })}
+   
 }
 
-.slider-image {
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-}
-
-.slider-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+.slide-image {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Transparent background */
+  object-fit: cover;
+  display: block;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 2s ease-in-out, transform 5s ease-in-out;
+  position: absolute;
+  
+}
+.slide-image.active {
+  opacity: 1; /* Only the active image is visible */
+  transform: scale(1);
 }
 
-.slider-content {
+.overlay-text {
   position: absolute;
-  color: white;
-  padding: 10px;
-  font-size: 18px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2; /* Ensure the text is on top */
-}
-  
-
-.slider-content h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  font-weight: 700;
-  ${Tablet({ fontSize: '55px', margin: "20px 0" })}
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1; 
 }
 
-.slider-content p {
-  font-size: 18px;
-  margin-bottom: 20px;
-  font-weight: 500;
-    ${Tablet({ fontSize: '20px' })}
-}
+
+  h1 {
+    margin: 20px 0;
+    font-weight: 700;
+    ${Tablet({ fontSize: '55px', margin: "30px 0" })}
+  }
+  p{
+    font-weight: 500;
+    ${Tablet({ fontSize: '20px', width: "725px" })}
+  }
+   a{
+    padding: 10px 15px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 10px;
+    text-decoration: none;
+  }
 
 
 `
 
 function ImageSlider() {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-    };
+  const images = [Image1, Image2];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    const slides = [
-        {
-            img: '/images/gallery1.jpg',
-            title: 'Slide 1',
-            description: 'This is the first slide',
-        },
-        {
-            img: '/images/gallery2.jpg',
-            title: 'Slide 2',
-            description: 'This is the second slide',
-        },
-        {
-            img: '/images/gallery3.jpg',
-            title: 'Slide 3',
-            description: 'This is the third slide',
-        },
-    ];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000); // Change every 3 seconds
 
-    return (
-        <Wrapper>
+    return () => clearInterval(interval);
+  }, [images.length]);
 
-            <Slider {...settings}>
-                {slides.map((slide, index) => (
-                    <div key={index}>
-                        <div className="slider-item">
-                            <img src={slide.img} alt={`Slide ${index}`} className="slider-image" />
-                            <div className="slider-overlay"></div> {/* Transparent overlay */}
-                            <div className="slider-content">
-                                <h2>{slide.title}</h2>
-                                <p>{slide.description}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </Slider>
+  return (
+    <Wrapper>
 
-        </Wrapper>
-    )
+      <div className="slider-container">
+        <div className="slider">
+
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Slide ${index + 1}`}
+              className={`slide-image ${index === currentIndex ? 'active' : ''}`}
+            />
+          ))}
+          <div className="overlay-text">
+
+            <h1>Travel Safely with PiTravel</h1>
+            <p>
+              Exploring the world with PiTravel
+            </p>
+            <Link to="/" className="">BOOK YOUR TICKET NOW</Link>
+          </div>
+        </div>
+      </div>
+
+    </Wrapper>
+  )
 }
 
 export default ImageSlider

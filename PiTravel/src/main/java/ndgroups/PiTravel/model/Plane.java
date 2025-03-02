@@ -18,14 +18,13 @@ import java.util.List;
 public class Plane {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer trainId;
-    private String trainCoach;
+    private Integer id;
     private String origin;
     private String destination;
     private LocalDate departureDate;
     private LocalTime departureTime;
     private Integer availableSeats;
     private Double price;
-    @OneToMany(mappedBy = "Plane", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "plane", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 }

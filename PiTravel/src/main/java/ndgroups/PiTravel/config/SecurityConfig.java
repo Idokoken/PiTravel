@@ -1,5 +1,6 @@
 package ndgroups.PiTravel.config;
 
+import ndgroups.PiTravel.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +13,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -24,28 +25,30 @@ public class SecurityConfig {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-    @Autowired
-    private JWTAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-//                                .requestMatchers("/users/**").hasAnyAuthority("USER", "ADMIN")
-//                                .requestMatchers("/users/**").hasRole("USER")
-                                .requestMatchers("/auth/**", "/room/**", "/booking/**", "/api/**").permitAll()
-                                .anyRequest().permitAll()
-//                                .anyRequest().authenticated()
-
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/users/**").hasRole("USER")
+                                .requestMatchers("/auth/**","/api/**").permitAll()
+//                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+//                .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin((form) -> form.permitAll())
                 .logout((logout) -> logout.permitAll());
 
         return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return customUserDetailsService;
     }
 
 

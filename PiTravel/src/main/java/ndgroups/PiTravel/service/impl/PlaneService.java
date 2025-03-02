@@ -5,10 +5,12 @@ import ndgroups.PiTravel.model.Plane;
 import ndgroups.PiTravel.repository.PlaneRepository;
 import ndgroups.PiTravel.service.Interface.IPlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class PlaneService implements IPlaneService {
     @Autowired
     private PlaneRepository planeRepository;

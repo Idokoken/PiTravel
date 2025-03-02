@@ -1,11 +1,10 @@
-package com.ndgroups.Ahom.security;
+package ndgroups.PiTravel.security;
 
-import com.ndgroups.Ahom.service.CustomUserDetailsService;
-import com.ndgroups.Ahom.utils.JWTUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ndgroups.PiTravel.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +19,7 @@ import java.io.IOException;
 @Configuration
 public class JWTAuthFilter extends OncePerRequestFilter {
     @Autowired
-    private JWTUtils jwtUtils;
+    private JwtService jwtService;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
@@ -28,15 +27,12 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
-        final String jwtToken;
-        final String userEmail;
-
-        if(authHeader == null || authHeader.isBlank()){
+        if(authHeader == null || authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request, response);
             return;
         }
-        jwtToken = authHeader.substring(7);
-        userEmail = jwtUtils.extractUsername(jwtToken);
+        String jwtToken = authHeader.substring(7);
+        jwtService.extractUsername(jwtToken);
 
         if(userEmail !=  null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails  = customUserDetailsService.loadUserByUsername(userEmail);

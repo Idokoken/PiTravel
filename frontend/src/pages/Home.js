@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Tablet } from './../Responsive';
 import styled from "styled-components";
+import Booking from "../components/Booking";
+import ImageSlider from "../components/ImageSlider";
 
 
 const Wrapper = styled.div`
@@ -64,17 +66,14 @@ const Wrapper = styled.div`
     text-decoration: none;
   }
   
-  .bookings{
-  	  border: 2px solid black;
-  	  height: 20vh;
-  }
+
   
   .holidays .destinations{
   	  display: grid;
   	  grid-template-columns: 100%;
   	  gap: 20px;
   	  padding: 30px;
-  	  ${Tablet({gridTemplateColumns: "23% 23% 23% 23%"})}
+  	  ${Tablet({ gridTemplateColumns: "23% 23% 23% 23%" })}
   }
   .holidays h3{
   	  text-align: center;
@@ -182,50 +181,54 @@ const Home = () => {
         <Link to="/" className="">BOOK YOUR TICKET NOW</Link>
       </div>
 
+      <section>
+        <ImageSlider />
+      </section>
+
       <section className="bookings">
-         <h3>Bookings</h3>
+        <Booking />
       </section>
-       
-      <section className="holidays my-3"> 
-      <h3>Explore Popular holiday Destinations</h3>
-      <div className="destinations">
-        
-           <div className="dest">
-              <div className="img-container">
-                <img src="/images/items/canada.jpeg" alt="city" />
-              </div>
-              <p className="mt-2">Canada</p>
-              <h4>Montreal</h4>
-              <p>Starting from <span>$500</span></p>
-           </div>
-           <div className="dest">
-              <div className="img-container">
-                <img src="/images/items/london.jpeg" alt="city" />
-              </div>
-              <p className="mt-2">United Kingdom</p>
-              <h4>London</h4>
-              <p>Starting from <span>$750</span></p>
-           </div>
-              <div className="dest">
-              <div className="img-container">
-                <img src="/images/items/usa.jpeg" alt="city" />
-              </div>
-              <p className="mt-2">United State of America</p>
-              <h4>Los Angeles</h4>
-              <p>Starting from <span>$750</span></p>
-           </div>
-              <div className="dest">
-              <div className="img-container">
-                <img src="/images/items/dubai.jpeg" alt="city" />
-              </div>
-              <p className="mt-2">United Arab Emirate</p>
-              <h4>Dubai</h4>
-              <p>Starting from <span>$750</span></p>
-           </div>
-           
-      </div>
+
+      <section className="holidays my-3">
+        <h3>Explore Popular holiday Destinations</h3>
+        <div className="destinations">
+
+          <div className="dest">
+            <div className="img-container">
+              <img src="/images/items/canada.jpeg" alt="city" />
+            </div>
+            <p className="mt-2">Canada</p>
+            <h4>Montreal</h4>
+            <p>Starting from <span>$500</span></p>
+          </div>
+          <div className="dest">
+            <div className="img-container">
+              <img src="/images/items/london.jpeg" alt="city" />
+            </div>
+            <p className="mt-2">United Kingdom</p>
+            <h4>London</h4>
+            <p>Starting from <span>$750</span></p>
+          </div>
+          <div className="dest">
+            <div className="img-container">
+              <img src="/images/items/usa.jpeg" alt="city" />
+            </div>
+            <p className="mt-2">United State of America</p>
+            <h4>Los Angeles</h4>
+            <p>Starting from <span>$750</span></p>
+          </div>
+          <div className="dest">
+            <div className="img-container">
+              <img src="/images/items/dubai.jpeg" alt="city" />
+            </div>
+            <p className="mt-2">United Arab Emirate</p>
+            <h4>Dubai</h4>
+            <p>Starting from <span>$750</span></p>
+          </div>
+
+        </div>
       </section>
-      
+
       <section className="story">
         <div className='story-bg'></div>
         <h3 className="m-4">Get to know our story</h3>
@@ -235,7 +238,7 @@ const Home = () => {
           </Link>
         </p>
       </section>
-      
+
       <section className="achievement">
         <h3>Achievements</h3>
         <div className="contents">
@@ -247,7 +250,7 @@ const Home = () => {
             <h1>100K + </h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
           </div>
-            <div>
+          <div>
             <h1>80% </h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
           </div>

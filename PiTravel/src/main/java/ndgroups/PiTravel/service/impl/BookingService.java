@@ -8,7 +8,6 @@ import ndgroups.PiTravel.repository.BookingRepository;
 import ndgroups.PiTravel.repository.PlaneRepository;
 import ndgroups.PiTravel.repository.UserRepository;
 import ndgroups.PiTravel.service.Interface.IBookingService;
-import ndgroups.PiTravel.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +32,8 @@ public class BookingService implements IBookingService {
 
             bookingRequest.setPlane(plane);
             bookingRequest.setUser(user);
-            String bookingConfirmationCode = Utils.generateRandomConfirmationCode(10);
-            bookingRequest.setBookingConfirmationCode(bookingConfirmationCode);
+//            String bookingConfirmationCode = Utils.generateRandomConfirmationCode(10);
+//            bookingRequest.setBookingConfirmationCode(bookingConfirmationCode);
             booking = bookingRepository.save(bookingRequest);
 
         }catch (Exception e){

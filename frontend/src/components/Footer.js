@@ -107,10 +107,10 @@ function Footer() {
             <h3 className="ms-2">PiTravel</h3>
           </div>
           <p>Bringing You closer to your destination</p>
-          
+
           <h4>Follow Us</h4>
           <div className="icons-container">
-          <Link className="icon-container" to="/">
+            <Link className="icon-container" to="/">
               <img className="icon" src="/images/x.png" alt="x" />
             </Link>
             <Link className="icon-container" to="/">
@@ -125,7 +125,7 @@ function Footer() {
             </Link>
 
           </div>
-          
+
         </div>
 
         <div className="item">
@@ -140,14 +140,14 @@ function Footer() {
           <p>
             <Link to="/routes">Routes</Link>
           </p>
-          
+
           <p>
             <Link to="/baggage-policy">Gaggage Allowance</Link>
           </p>
 
         </div>
-       
-        
+
+
         <div className="item">
           <h3>About Us</h3>
           <hr className="ruler" />
@@ -167,8 +167,8 @@ function Footer() {
             <Link to="/media-center">Media Center</Link>
           </p>
 
-        </div>       
-        
+        </div>
+
         <div className="item">
           <h3>Book</h3>
           <hr className="ruler" />
@@ -186,10 +186,10 @@ function Footer() {
           </p>
 
         </div>
-          
+
       </div>
-      
-      
+
+
       <div className="bottom">
         <p className="copywite">
           All Right reversed &copy; PiTravel {new Date().getFullYear()}

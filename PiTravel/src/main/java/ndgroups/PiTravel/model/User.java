@@ -1,13 +1,13 @@
 package ndgroups.PiTravel.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +17,17 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
-    private String name;
+    private Integer id;
+    private String username;
     private String email;
     private String password;
-    private String phoneNumber;
+    @ManyToMany(cascade =  {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name="user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Collection<Role> roles = new HashSet<>();
+
+
 }

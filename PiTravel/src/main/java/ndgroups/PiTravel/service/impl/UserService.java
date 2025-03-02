@@ -1,18 +1,20 @@
 package ndgroups.PiTravel.service.impl;
 
-import com.ndgroups.Ahom.dto.UserDTO;
-import com.ndgroups.Ahom.utils.JWTUtils;
-import com.ndgroups.Ahom.utils.Utils;
+import ndgroups.PiTravel.Exception.AlreadyExistException;
+import ndgroups.PiTravel.dto.UserDTO;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.UserRepository;
+import ndgroups.PiTravel.request.CreateUserRequest;
+import ndgroups.PiTravel.request.UpdateUserRequest;
 import ndgroups.PiTravel.service.Interface.IUserService;
+import ndgroups.PiTravel.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -21,39 +23,10 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private JWTUtils jwtUtils;
+    private JwtService jwtUtils;
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
-
-    @Override
-    public User register(User user) {
-        return null;
-//        User response = new User();
-//        try {
-//            if(user.getRole() == null || user.getRole().isBlank()){
-//                user.setRole("USER");
-//            }
-//            if (userRepository.existsByEmail(user.getEmail())){
-//                throw new OurException(user.getEmail() + "Already Exist");
-//            }
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//            User saveUser = userRepository.save(user);
-//            UserDTO userDTO = Utils.mapUserEntityToUserDTO(saveUser);
-//            response.setStatusCode(200);
-//            response.setUser(userDTO);
-//
-//        }catch (OurException e){
-//            response.setStatusCode(400);
-//            response.setMessage(e.getMessage());
-//        }
-//        catch (Exception e){
-//            response.setStatusCode(500);
-//            response.setMessage("Error occurred during user registration" + e.getMessage());
-//        }
-//        return response;
-    }
 
     @Override
     public User login(User user) {
@@ -82,8 +55,26 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User createUser(CreateUserRequest request) {
+        return Optional.of(request)
+                .filter(user -> !userRepository.existsByEmail(request.getEmail()))
+                .map(req -> {
+                    User user = new User();
+                    user.setUsername(request.getUsername());
+                    user.setEmail(request.getEmail());
+                    user.setPassword(passwordEncoder.encode(request.getPassword()));
+                    return userRepository.save(user);
+                }).orElseThrow(() -> new AlreadyExistException(request.getEmail() + " already exist"));
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public UserDTO convertUserToDto(User user) {
+        return null;
     }
 
     @Override
@@ -110,7 +101,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteUser(String userId) {
+    public void deleteUser(Integer userId) {
 
 //        User response = new User();
 //        try {
@@ -130,27 +121,6 @@ public class UserService implements IUserService {
 //        return response;
     }
 
-    @Override
-    public User getUserById(String userId) {
-        return null;
-//        User response = new User();
-//        try {
-//            User user = userRepository.findById(Integer.valueOf(userId))
-//                    .orElseThrow(() -> new OurException("user not found"));
-//            UserDTO userDTO = Utils.mapUserEntityToUserDTO(user);
-//            response.setStatusCode(200);
-//            response.setMessage("successful");
-//            response.setUser(userDTO);
-//        }catch (OurException e){
-//            response.setStatusCode(400);
-//            response.setMessage(e.getMessage());
-//        }
-//        catch (Exception e){
-//            response.setStatusCode(500);
-//            response.setMessage("Error getting user " + e.getMessage());
-//        }
-//        return response;
-    }
 
     @Override
     public User getMyInfo(String email) {
@@ -172,6 +142,18 @@ public class UserService implements IUserService {
 //            response.setMessage("Error getting user info " + e.getMessage());
 //        }
 //        return response;
+    }
+
+    @Override
+    public User getUserById(Integer userId) {
+        return null;
+    }
+
+
+
+    @Override
+    public User updateUser(UpdateUserRequest request, Integer userId) {
+        return null;
     }
 }
 
