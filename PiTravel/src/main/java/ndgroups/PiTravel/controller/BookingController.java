@@ -22,7 +22,7 @@ public class BookingController {
     //    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{planeId}/{userId}")
     public String createBooking(@PathVariable Integer planeId, @PathVariable Integer userId,
-                                    @ModelAttribute("booking") Booking booking, Model model){
+                                @ModelAttribute("booking") Booking booking, Model model){
         bookingService.saveBooking(planeId, userId, booking);
         return "admin/bookings/checkout";
     }

@@ -1,20 +1,18 @@
 package ndgroups.PiTravel.service.impl;
 
-import ndgroups.PiTravel.Exception.AlreadyExistException;
 import ndgroups.PiTravel.dto.UserDTO;
+import ndgroups.PiTravel.Exception.AlreadyExistException;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.UserRepository;
 import ndgroups.PiTravel.request.CreateUserRequest;
-import ndgroups.PiTravel.request.UpdateUserRequest;
 import ndgroups.PiTravel.service.Interface.IUserService;
-import ndgroups.PiTravel.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;;
 
 @Service
 public class UserService implements IUserService {
@@ -23,36 +21,8 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private JwtService jwtUtils;
-    @Autowired
     private AuthenticationManager authenticationManager;
 
-
-    @Override
-    public User login(User user) {
-        return  null;
-//        User response = new User();
-//        try {
-//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
-//                    loginRequest.getPassword()));
-//        var user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new
-//                    OurException("user not found"));
-//        var token = jwtUtils.generateToken(user);
-//            response.setStatusCode(200);
-//            response.setToken(token);
-//            response.setRole(user.getRole());
-//            response.setExpirationTime("7 Days");
-//            response.setMessage("successful");
-//        }catch (OurException e){
-//            response.setStatusCode(400);
-//            response.setMessage(e.getMessage());
-//        }
-//        catch (Exception e){
-//            response.setStatusCode(500);
-//            response.setMessage("Error occurred during user login" + e.getMessage());
-//        }
-//        return response;
-    }
 
     @Override
     public User createUser(CreateUserRequest request) {
@@ -151,9 +121,6 @@ public class UserService implements IUserService {
 
 
 
-    @Override
-    public User updateUser(UpdateUserRequest request, Integer userId) {
-        return null;
-    }
 }
+
 

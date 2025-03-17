@@ -21,7 +21,10 @@ public class User {
     private String username;
     private String email;
     private String password;
-    @ManyToMany(cascade =  {CascadeType.MERGE, CascadeType.PERSIST})
+//    private String role;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH})
     @JoinTable(
             name="user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

@@ -9,7 +9,7 @@ import ndgroups.PiTravel.response.JwtResponse;
 import ndgroups.PiTravel.security.JwtService;
 import ndgroups.PiTravel.service.CustomUserDetailsService;
 import ndgroups.PiTravel.service.Interface.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -69,7 +70,7 @@ public class AuthController {
     //logout route
     @PostMapping("/logout")
     public  ResponseEntity<ApiResponse> logout() {
-            return ResponseEntity.ok(new ApiResponse("successfully logged out", null));
+        return ResponseEntity.ok(new ApiResponse("successfully logged out", null));
 
     }
 

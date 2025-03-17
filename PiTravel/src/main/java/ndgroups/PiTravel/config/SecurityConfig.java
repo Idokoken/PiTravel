@@ -1,5 +1,7 @@
 package ndgroups.PiTravel.config;
 
+
+import ndgroups.PiTravel.security.JWTAuthFilter;
 import ndgroups.PiTravel.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +29,8 @@ public class SecurityConfig {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private JWTAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,27 +39,27 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/users/**").hasRole("USER")
-                                .requestMatchers("/auth/**","/api/**").permitAll()
+                                .requestMatchers("/auth/**", "/api/**").permitAll()
 //                                .anyRequest().permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-//                .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin((form) -> form.permitAll())
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout.permitAll())
+                .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return customUserDetailsService;
     }
 
 
     @Bean
-    public AuthenticationProvider  authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         daoAuthenticationProvider.setUserDetailsService(customUserDetailsService);
@@ -67,5 +73,7 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-
 }
+
+
+
