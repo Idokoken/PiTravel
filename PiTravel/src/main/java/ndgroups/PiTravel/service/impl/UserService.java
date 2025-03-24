@@ -1,6 +1,6 @@
 package ndgroups.PiTravel.service.impl;
 
-import ndgroups.PiTravel.dto.UserDTO;
+import ndgroups.PiTravel.Exception.ResourceNotFoundException;
 import ndgroups.PiTravel.Exception.AlreadyExistException;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.UserRepository;
@@ -36,6 +36,25 @@ public class UserService implements IUserService {
                     return userRepository.save(user);
                 }).orElseThrow(() -> new AlreadyExistException(request.getEmail() + " already exist"));
     }
+    @Override
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found with the given id " + userId));
+    }
+
+    @Override
+    public User updateUser(Integer userId, User user) {
+        Optional<User> optUser = userRepository.findById(userId);
+        if(optUser.isPresent()){
+            User existingUser  =  optUser.get();
+            existingUser.setUsername(user.getUsername());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            userRepository.save(existingUser);
+        }
+        throw new ResourceNotFoundException("user not found");
+    }
 
     @Override
     public List<User> getAllUsers() {
@@ -43,82 +62,26 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO convertUserToDto(User user) {
-        return null;
-    }
-
-    @Override
-    public User getUserBookingHistory(String userId) {
-        return null;
-//        User response = new User();
-//        try {
-//            User user = userRepository.findById(Integer.valueOf(userId))
-//                    .orElseThrow(() -> new OurException("user not found"));
-//            UserDTO userDTO = Utils.mapUserEntityToUserDTOPlusUserBookingsAndRooms(user);
-//            response.setStatusCode(200);
-//            response.setMessage("successful");
-//            response.setUser(userDTO);
-//
-//        }catch (OurException e){
-//            response.setStatusCode(400);
-//            response.setMessage("Error getting user booking history " + e.getMessage());
-//        }
-//        catch (Exception e){
-//            response.setStatusCode(500);
-//            response.setMessage("Error getting user booking history " + e.getMessage());
-//        }
-//        return response;
-    }
-
-    @Override
     public void deleteUser(Integer userId) {
-
-//        User response = new User();
-//        try {
-//            User user = userRepository.findById(Integer.valueOf(userId))
-//                    .orElseThrow(() -> new OurException("user not found"));
-//            userRepository.delete(user);
-//            response.setStatusCode(200);
-//            response.setMessage("successful");
-//        }catch (OurException e){
-//            response.setStatusCode(400);
-//            response.setMessage(e.getMessage());
-//        }
-//        catch (Exception e){
-//            response.setStatusCode(500);
-//            response.setMessage("Error deleting user " + e.getMessage());
-//        }
-//        return response;
+       if(!userRepository.existsById(userId)){
+           throw new ResourceNotFoundException("user not found with the given id");
+       }
+       userRepository.deleteById(userId);
     }
 
 
     @Override
-    public User getMyInfo(String email) {
-        return null;
-//        User response = new User();
-//        try {
-//            User user = userRepository.findByEmail(email)
-//                    .orElseThrow(() -> new OurException("user not found"));
-//            UserDTO userDTO = Utils.mapUserEntityToUserDTO(user);
-//            response.setStatusCode(200);
-//            response.setMessage("successful");
-//            response.setUser(userDTO);
-//        }catch (OurException e){
-//            response.setStatusCode(400);
-//            response.setMessage(e.getMessage());
-//        }
-//        catch (Exception e){
-//            response.setStatusCode(500);
-//            response.setMessage("Error getting user info " + e.getMessage());
-//        }
-//        return response;
+    public User getUserInfo(String email) {
+        if(userRepository.existsByEmail(email)){
+            return userRepository.findByEmail(email);
+        }
+       throw new ResourceNotFoundException("no user with the given email " + email);
     }
 
     @Override
-    public User getUserById(Integer userId) {
-        return null;
+    public List<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
-
 
 
 }

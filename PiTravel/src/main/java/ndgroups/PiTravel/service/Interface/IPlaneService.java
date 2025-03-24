@@ -13,6 +13,9 @@ public interface IPlaneService {
     void deletePlane(Integer PlaneId);
     List<Plane> getAllPlanes();
     List<Plane> getAllAvailablePlanes();
+    List<Plane>getPlanesByPlaneName(String planeName);
+    List<Plane>getPlanesByDepartureDate(LocalDate departureDate);
+    List<Plane>getPlanesByDestination(String destination);
     List<Plane> findAvailablePlanesByOriginAndDestinationAndDepartureDate(String origin, String destination,
                                                                           LocalDate departureDate);
 }

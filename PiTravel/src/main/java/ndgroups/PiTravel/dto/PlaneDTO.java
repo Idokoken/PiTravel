@@ -10,8 +10,8 @@ import java.util.List;
 
 @Data
 public class PlaneDTO {
-    private Integer trainId;
-    private String trainCoach;
+    private Integer id;
+    private String planeName;
     private String origin;
     private String destination;
     private LocalDate departureDate;

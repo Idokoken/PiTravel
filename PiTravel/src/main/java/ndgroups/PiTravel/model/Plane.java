@@ -19,6 +19,7 @@ public class Plane {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String planeName;
     private String origin;
     private String destination;
     private LocalDate departureDate;

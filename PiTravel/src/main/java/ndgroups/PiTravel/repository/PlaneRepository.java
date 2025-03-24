@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface PlaneRepository extends JpaRepository<Plane, Integer> {
 
+    List<Plane>findByPlaneName(String planeName);
+    List<Plane>findByDepartureDate(LocalDate departureDate);
+    List<Plane>findByDestination(String destination);
     @Query("SELECT t FROM Plane t WHERE " +
             "t.departureDate = :departureDate AND " +
             "(t.origin = :origin OR :origin IS NULL OR :origin = '' OR t.origin IS NOT NULL) AND " +
@@ -21,4 +24,7 @@ public interface PlaneRepository extends JpaRepository<Plane, Integer> {
             @Param("destination") String destination,
             @Param("departureDate") LocalDate departureDate
     );
+
+    @Query("SELECT e FROM Plane e WHERE e.departureDate >= :today")
+    List<Plane> findAvailablePlanes(LocalDate today);
 }

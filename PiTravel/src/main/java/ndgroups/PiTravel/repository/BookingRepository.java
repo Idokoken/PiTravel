@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
-    Booking findBySeatNumber(Integer seatNumber);
+    Optional<Booking> findBySeatNumber(Integer seatNumber);
     List<Booking> findByPlane(Plane plane);
     Optional<Booking> findByBookingConfirmationCode(String confirmationCode);
     List<Booking>findByUserId(Integer userId);

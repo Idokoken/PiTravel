@@ -29,10 +29,20 @@ public class PlaneController {
         }
 
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse> getOnePlane(@PathVariable Integer id) {
+        try {
+            Plane plane  =  planeService.getPlaneById(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("successful", plane));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse(e.getMessage(), null));
+        }
+    }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ApiResponse> updatePlane(@PathVariable Integer id, @RequestBody Plane updatePlane)  {
-
         try {
             Plane updatedPlane  =  planeService.updatePlane(id, updatePlane);
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -43,15 +53,72 @@ public class PlaneController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deletePlane( @PathVariable Integer id)  {
-
         try {
             planeService.deletePlane(id);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponse("user created", null));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("plane successfully deleted", null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse> getAllPlanes() {
+        try {
+            List<Plane> planes  =  planeService.getAllPlanes();
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("successful", planes));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<ApiResponse> getAllAvailablePlanes() {
+        try {
+            List<Plane> planes  =  planeService.getAllAvailablePlanes();
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("successful", planes));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+    @GetMapping("/name")
+    public ResponseEntity<ApiResponse> getPlanesByName(@RequestParam String name) {
+        try {
+            List<Plane> planes  =  planeService.getPlanesByPlaneName(name);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("successful", planes));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+    @GetMapping("/departureDate")
+    public ResponseEntity<ApiResponse> getPlanesByDepartureDate(@RequestParam LocalDate departureDate) {
+        try {
+            List<Plane> planes  =  planeService.getPlanesByDepartureDate(departureDate);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("successful", planes));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/destination")
+    public ResponseEntity<ApiResponse> getPlanesByDestination(@RequestParam String destination) {
+        try {
+            List<Plane> planes  =  planeService.getPlanesByDestination(destination);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("successful", planes));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(e.getMessage(), null));
         }
     }
@@ -62,7 +129,7 @@ public class PlaneController {
         try {
             List<Plane>planes =  planeService.findAvailablePlanesByOriginAndDestinationAndDepartureDate(origin, destination,
                     departureDate);
-            return ResponseEntity.status(HttpStatus.CREATED)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body(new ApiResponse("user created", null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
