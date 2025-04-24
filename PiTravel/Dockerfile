@@ -7,6 +7,6 @@ FROM amazoncorretto:17
 
 EXPOSE 8080
 
-COPY --from=build /target/DAShop-0.0.1-SNAPSHOT.jar PiTravel.jar
+COPY --from=build /target/Pitravel-0.0.1-SNAPSHOT.jar PiTravel.jar
 
 ENTRYPOINT ["java", "-jar", "PiTravel.jar"]

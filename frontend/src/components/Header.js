@@ -83,6 +83,36 @@ function Header({ user }) {
                                     Routes
                                 </Link>
                             </li>
+
+
+                        </ul>
+
+                        <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">
+                                        login
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/signup">
+                                        register
+                                    </Link>
+                                </li>
+                            </>
+
+                            <>
+                                <li>
+                                    {user && user.name}
+                                </li>
+                                <button
+                                    type="button"
+                                    className="dropdown-btn"
+                                    onClick={() => "hello"}
+                                >
+                                    logout
+                                </button>
+                            </>
                         </ul>
                     </div>
                 </div>

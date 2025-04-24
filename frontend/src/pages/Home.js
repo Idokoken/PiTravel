@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import { Tablet } from './../Responsive';
 import styled from "styled-components";
 import Booking from "../components/Booking";
-import ImageSlider from "../components/ImageSlider";
+import StorySlider from "../components/StorySlider";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 
 const Wrapper = styled.div`
   min-height: 50vh;
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--primary-font);
   
   //  a {
   //   padding: 10px 15px;
@@ -27,6 +29,7 @@ const Wrapper = styled.div`
   }
   .hero {
   position: relative;
+  font-family: "Poppins", sans-serif;
   z-index: -2;
   height: 50vh;
   width: 100%;
@@ -66,8 +69,6 @@ const Wrapper = styled.div`
     text-decoration: none;
   }
   
-
-  
   .holidays .destinations{
   	  display: grid;
   	  grid-template-columns: 100%;
@@ -99,36 +100,7 @@ const Wrapper = styled.div`
   	  border-radius: 20px 20px 0 0;
   }
 
-  .story{
-  	width: 90%;
-  	height: 40vh;
-  	margin: 20px auto;
-  	position: relative;
-  z-index: -2;
-  background-image: url("/images/items/story.jpeg");
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: white;
-  ${Tablet({ height: '60vh' })}
-  }
-  .story .story-bg{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-  }
-  .story a{
-    padding: 7px 10px;
-    background: var(--primary-color);
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    border-radius: 10px;
-    text-decoration: none;
-  }
+  
   .achievement{
   	  padding: 30px 20px;
   	  background: var(--secondary-color);
@@ -171,93 +143,88 @@ const Home = () => {
 
 
   return (
-    <Wrapper>
-      <div className="hero" id="home">
-        <div className='hero-bg'></div>
-        <h1>Travel Safely with PiTravel</h1>
-        <p>
-          Exploring the world with PiTravel
-        </p>
-        <Link to="/" className="">BOOK YOUR TICKET NOW</Link>
-      </div>
 
-      <section>
-        <ImageSlider />
-      </section>
-
-      <section className="bookings">
-        <Booking />
-      </section>
-
-      <section className="holidays my-3">
-        <h3>Explore Popular holiday Destinations</h3>
-        <div className="destinations">
-
-          <div className="dest">
-            <div className="img-container">
-              <img src="/images/items/canada.jpeg" alt="city" />
-            </div>
-            <p className="mt-2">Canada</p>
-            <h4>Montreal</h4>
-            <p>Starting from <span>$500</span></p>
-          </div>
-          <div className="dest">
-            <div className="img-container">
-              <img src="/images/items/london.jpeg" alt="city" />
-            </div>
-            <p className="mt-2">United Kingdom</p>
-            <h4>London</h4>
-            <p>Starting from <span>$750</span></p>
-          </div>
-          <div className="dest">
-            <div className="img-container">
-              <img src="/images/items/usa.jpeg" alt="city" />
-            </div>
-            <p className="mt-2">United State of America</p>
-            <h4>Los Angeles</h4>
-            <p>Starting from <span>$750</span></p>
-          </div>
-          <div className="dest">
-            <div className="img-container">
-              <img src="/images/items/dubai.jpeg" alt="city" />
-            </div>
-            <p className="mt-2">United Arab Emirate</p>
-            <h4>Dubai</h4>
-            <p>Starting from <span>$750</span></p>
-          </div>
-
+    <>
+      <Header />
+      <Wrapper>
+        <div className="hero" id="home">
+          <div className='hero-bg'></div>
+          <h1>Travel Safely with PiTravel</h1>
+          <p>
+            Exploring the world with PiTravel
+          </p>
+          <Link to="/" className="">BOOK YOUR TICKET NOW</Link>
         </div>
-      </section>
 
-      <section className="story">
-        <div className='story-bg'></div>
-        <h3 className="m-4">Get to know our story</h3>
-        <p className="m-4">
-          <Link to="/stories">
-            Learn More
-          </Link>
-        </p>
-      </section>
+        <section className="bookings">
+          <Booking />
+        </section>
 
-      <section className="achievement">
-        <h3>Achievements</h3>
-        <div className="contents">
-          <div>
-            <h1>100 + </h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
-          </div>
-          <div>
-            <h1>100K + </h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
-          </div>
-          <div>
-            <h1>80% </h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
-          </div>
-        </div>
-      </section>
+        <section className="holidays my-3">
+          <h3>Explore Popular holiday Destinations</h3>
+          <div className="destinations">
 
-    </Wrapper>
+            <div className="dest">
+              <div className="img-container">
+                <img src="/images/items/canada.jpeg" alt="city" />
+              </div>
+              <p className="mt-2">Canada</p>
+              <h4>Montreal</h4>
+              <p>Starting from <span>$500</span></p>
+            </div>
+            <div className="dest">
+              <div className="img-container">
+                <img src="/images/items/london.jpeg" alt="city" />
+              </div>
+              <p className="mt-2">United Kingdom</p>
+              <h4>London</h4>
+              <p>Starting from <span>$750</span></p>
+            </div>
+            <div className="dest">
+              <div className="img-container">
+                <img src="/images/items/usa.jpeg" alt="city" />
+              </div>
+              <p className="mt-2">United State of America</p>
+              <h4>Los Angeles</h4>
+              <p>Starting from <span>$750</span></p>
+            </div>
+            <div className="dest">
+              <div className="img-container">
+                <img src="/images/items/dubai.jpeg" alt="city" />
+              </div>
+              <p className="mt-2">United Arab Emirate</p>
+              <h4>Dubai</h4>
+              <p>Starting from <span>$750</span></p>
+            </div>
+
+          </div>
+        </section>
+
+        <section className="story">
+          <StorySlider />
+        </section>
+
+        <section className="achievement">
+          <h3>Achievements</h3>
+          <div className="contents">
+            <div>
+              <h1>100 + </h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
+            </div>
+            <div>
+              <h1>100K + </h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
+            </div>
+            <div>
+              <h1>80% </h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula lacinia purus non tincidunt. Fusce accumsan varius  consectetur ut ac augue</p>
+            </div>
+          </div>
+        </section>
+
+      </Wrapper>
+      <Footer />
+    </>
   );
 };
 

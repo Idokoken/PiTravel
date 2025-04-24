@@ -27,7 +27,7 @@ public class JwtService {
                 .map(GrantedAuthority::getAuthority).toList();
 
         return Jwts.builder()
-                .subject(userPrinciple.getEmail())
+                .subject(userPrinciple.getUsername())
                 .claim("id", userPrinciple.getId())
                 .claim("roles", roles)
                 .issuedAt(new Date())

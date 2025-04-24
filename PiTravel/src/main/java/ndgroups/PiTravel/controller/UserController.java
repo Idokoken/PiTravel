@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${api.prefix}/users")
+@CrossOrigin("*")
 public class UserController {
     @Autowired
     private IUserService userService;

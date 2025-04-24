@@ -14,14 +14,24 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private Integer id;
     private String email;
     private String password;
     private Collection<GrantedAuthority>authorities;
 
+
+    public CustomUserDetails(Integer id, String email, String password, Collection<GrantedAuthority> authorities) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
+    public CustomUserDetails() {
+    }
 
     public static CustomUserDetails buildUserDetails(User user){
         List<GrantedAuthority> authorities = user.getRoles()

@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+// import axios from "axios";
+// import { BASE_URL } from "../API";
 //import { link } from "react-router-dom";
 //import { Tablet } from "../Responsive";
 

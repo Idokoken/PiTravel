@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import ErrorPage from "./pages/ErrorPage";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
@@ -14,14 +12,22 @@ import BaggagePolicy from "./pages/BaggagePolicy"
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-import ScrollToTop from "./ScrollToTop"
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import BookingList from "./pages/admin/bookings/BookingList";
+import Checkout from './pages/admin/bookings/Checkout';
+import AddPlane from "./pages/admin/plane/AddPlane";
+import EditPlane from "./pages/admin/plane/EditPlane"
+import SinglePlane from './pages/admin/plane/SinglePlane';
+import AddUser from './pages/admin/user/AddUser';
+import EditUser from './pages/admin/user/EditUser';
+import UserList from './pages/admin/user/UserList';
+
+import ScrollToTop from "./ScrollToTop";
 
 
 function App() {
   return (
     <Router>
-
-      <Header />
 
       <ScrollToTop />
 
@@ -39,11 +45,22 @@ function App() {
         <Route path="/login" element={<Login />} />
 
 
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/bookinglist" element={<BookingList />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/addplane" element={<AddPlane />} />
+        <Route path="/editplane" element={<EditPlane />} />
+        <Route path="/planes/{id}" element={<SinglePlane />} />
+        <Route path="/user" element={< UserList />} />
+        <Route path="/adduser" element={<AddUser />} />
+        <Route path="/edituser" element={<EditUser />} />
+
+
+
         <Route path="*" element={<ErrorPage />} />
 
       </Routes>
 
-      <Footer />
     </Router>
   );
 }

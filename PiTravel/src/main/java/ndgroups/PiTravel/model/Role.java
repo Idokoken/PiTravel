@@ -12,7 +12,7 @@ import java.util.HashSet;
 
 @Setter
 @Getter
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Role {
@@ -25,6 +25,33 @@ public class Role {
     private Collection<User> users = new HashSet<>();
     public Role(String name) {
         this.name = name;
+    }
+
+    public Role() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }
 
