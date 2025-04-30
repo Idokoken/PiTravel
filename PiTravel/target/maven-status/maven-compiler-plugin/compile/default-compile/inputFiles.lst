@@ -16,12 +16,10 @@ C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgr
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\model\Booking.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\model\CustomUserDetails.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\model\Plane.java
-C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\model\Role.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\model\User.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\PiTravelApplication.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\repository\BookingRepository.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\repository\PlaneRepository.java
-C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\repository\RoleRepository.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\repository\UserRepository.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\request\CreateUserRequest.java
 C:\Users\User\Documents\kenneth\project\PiTravel-app\PiTravel\src\main\java\ndgroups\PiTravel\request\LoginRequest.java

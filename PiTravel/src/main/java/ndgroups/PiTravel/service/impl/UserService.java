@@ -8,6 +8,7 @@ import ndgroups.PiTravel.request.CreateUserRequest;
 import ndgroups.PiTravel.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,12 @@ public class UserService implements IUserService {
                     user.setUsername(request.getUsername());
                     user.setEmail(request.getEmail());
                     user.setPassword(passwordEncoder.encode(request.getPassword()));
+                    user.setRole((request.getRole()));
                     return userRepository.save(user);
                 }).orElseThrow(() -> new AlreadyExistException(request.getEmail() + " already exist"));
     }
+//     if(user.getRole() == null || user.getRole().isBlank()){
+//            user.setRole("USER");
     @Override
     public User getUserById(Integer userId) {
         return userRepository.findById(userId)
@@ -69,13 +73,10 @@ public class UserService implements IUserService {
        userRepository.deleteById(userId);
     }
 
-
     @Override
     public User getUserInfo(String email) {
-        if(userRepository.existsByEmail(email)){
-            return userRepository.findByEmail(email);
-        }
-       throw new ResourceNotFoundException("no user with the given email " + email);
+            return userRepository.findByEmail(email)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Override
