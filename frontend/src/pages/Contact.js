@@ -1,19 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 //import { Link } from "react-router-dom";
 import { Tablet } from "../Responsive";
 import SubscribeForm from "../components/SubscribeForm";
 
 
 const Wrapper = styled.div`
+  padding: 0;
+  margin: 0;
+  font-family: var(--primary-font);
+  min-height: 40vh;
+  
   .hero{
   	width: 100%;
-  	height: 20vh;
+  	height: 15vh;
     background: linear-gradient(92.05deg, #B02323 61.11%, #2670DF 98.82%);
   	display: flex;
   	justify-content: center;
   	align-items: center;
   	padding: 20px;
+    ${Tablet({ height: "20vh" })}
   }
   
   .hero h1{
@@ -48,7 +56,7 @@ a{
     border-radius: 20px;
     padding: 30px 10px;
     ${Tablet({
-    display: 'grid', gridTemplateColumns: '45% 45%', padding: '30px', borderRadius: '30px'
+  display: 'grid', gridTemplateColumns: '45% 45%', padding: '30px', borderRadius: '30px'
 })}
 }
 .address .one{
@@ -84,75 +92,79 @@ a{
 `
 
 function Contact() {
-    return (
-        <Wrapper>
-            <div className="hero">
-                <h1>Contact Us</h1>
+  return (
+    <>
+      <Header />
+      <Wrapper>
+        <div className="hero">
+          <h1>Contact Us</h1>
+        </div>
+        <div className="container py-3">
+          <p className="my-3">If you have questions about any of our services, you can reach us through any of the following platforms. We will get back to you as soon as possible.
+          </p>
+
+          <div className="address">
+            <div className="one">
+              <div className="">
+                <span className="me-1"><i className="fa-solid icon fa-location-dot"></i></span>
+                <h4>Office Hours</h4>
+              </div>
+              <p>Opens <strong>24/7</strong>, Monday - Sunday</p>
+
             </div>
-            <div className="container py-3">
-        <p className="my-3">If you have questions about any of our services, you can reach us through any of the following platforms. We will get back to you as soon as possible.
-        </p>
-                  
-    <div className="address">
-       <div className="one">
-         <div className="">
-            <span className="me-1"><i className="fa-solid icon fa-location-dot"></i></span>
-             <h4>Office Hours</h4>
-          </div>   
-          <p>Opens <strong>24/7</strong>, Monday - Sunday</p>
-                  
-       </div>
-       <div className="one">
-         <div className="">
-            <span className="me-1"><i className="fa-solid icon fa-phone"></i></span>
-             <h4>Our Hotline</h4>
-          </div>   
-          <p>+2348062538412</p>
-          <p>+2347033655544</p>
-       </div>
-        <div className="one">
-         <div className="">
-            <span className="me-1"><i className="fa-solid icon fa-envelope-circle-check"></i></span>
-             <h4>Email Address</h4>
-          </div>   
-          <p>Info@pitravel.com</p>                           <p>Support@pitravel.com</p>
-       </div>
-            
-      </div>
-      </div>
-      
-      <form className="p-4">
-  <h2>Send Us a message and lets' know how we can help you</h2>
-  <div className="mb-3">
-    <label for="email" className="form-label">Email</label>
-    <input type="email" className="form-control" id="email" />  
-  </div>
-  
-  <div className="mb-3">
-    <label for="name" className="form-label">Name</label>
-    <input type="text" className="form-control" id="name" />  
-  </div>
-  
-  <div className="mb-3">
-    <label for="name" className="form-label">Phone Number</label>
-    <input type="number" className="form-control" id="name" />  
-  </div>
-  
-   <div className="mb-3">
-    <label for="message" className="form-label">Message</label>
-    <textarea className="form-control" id="message"  />  
-  </div>  
-  
-  <button type="submit" className="btn btn-primary">Submit</button>
-  
-</form>
-          
+            <div className="one">
+              <div className="">
+                <span className="me-1"><i className="fa-solid icon fa-phone"></i></span>
+                <h4>Our Hotline</h4>
+              </div>
+              <p>+2348062538412</p>
+              <p>+2347033655544</p>
+            </div>
+            <div className="one">
+              <div className="">
+                <span className="me-1"><i className="fa-solid icon fa-envelope-circle-check"></i></span>
+                <h4>Email Address</h4>
+              </div>
+              <p>Info@pitravel.com</p>                           <p>Support@pitravel.com</p>
+            </div>
+
+          </div>
+        </div>
+
+        <form className="p-4">
+          <h2>Send Us a message and lets' know how we can help you</h2>
+          <div className="mb-3">
+            <label for="email" className="form-label">Email</label>
+            <input type="email" className="form-control" id="email" />
+          </div>
+
+          <div className="mb-3">
+            <label for="name" className="form-label">Name</label>
+            <input type="text" className="form-control" id="name" />
+          </div>
+
+          <div className="mb-3">
+            <label for="name" className="form-label">Phone Number</label>
+            <input type="number" className="form-control" id="name" />
+          </div>
+
+          <div className="mb-3">
+            <label for="message" className="form-label">Message</label>
+            <textarea className="form-control" id="message" />
+          </div>
+
+          <button type="submit" className="btn btn-primary">Submit</button>
+
+        </form>
+
         <section className="subscribe">
           <SubscribeForm />
         </section>
 
-        </Wrapper>
-    )
+      </Wrapper>
+      <Footer />
+    </>
+  )
 }
 
 export default Contact

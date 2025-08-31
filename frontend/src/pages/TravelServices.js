@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-//import { link } from "react-router-dom";
-import { Tablet } from "../Responsive";
+import { Tablet } from '../Responsive';
 
 const Wrapper = styled.div`
   padding: 0;
@@ -29,33 +28,33 @@ const Wrapper = styled.div`
   }
   .content{
   	min-height: 40vh;
-  }
-  h3{
-  	font-weight: 700;
-  }
-
 `
 
-function FlightRoutes() {
-  return (
-    <>
-      <Header />
-      <Wrapper>
-        <div className="hero">
-          <h1>flight routes</h1>
-        </div>
-        <div className="container content py-3">
-          <h3>Domestic Routes</h3>
-          <div className=""></div>
-          <h3>Regional Routes</h3>
-          <div className=""></div>
-          <h3>International Routes</h3>
-          <div className=""></div>
-        </div>
-      </Wrapper>
-      <Footer />
-    </>
-  )
+
+function TravelServices() {
+    return (
+        <>
+            <Header />
+            <Wrapper>
+                <div className="hero">
+                    <h1>Travel Services</h1>
+                </div>
+                <div className="container content p-3">
+                    <h2>We are here to help you!</h2>
+
+                    <p>Here are some frequently asked questions (FAQs):</p>
+
+                    <h5>General Questions</h5>
+
+
+
+
+
+                </div>
+            </Wrapper>
+            <Footer />
+        </>
+    )
 }
 
-export default FlightRoutes;
+export default TravelServices

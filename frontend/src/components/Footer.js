@@ -155,10 +155,10 @@ function Footer() {
             <Link to="/">Home</Link>
           </p>
           <p>
-            <Link to="/contact">Contact</Link>
+            <Link to="/contact-us">Contact</Link>
           </p>
           <p>
-            <Link to="/about">About Us</Link>
+            <Link to="/about-us">About Us</Link>
           </p>
           <p>
             <Link to="/Careers">Careers</Link>
@@ -173,7 +173,7 @@ function Footer() {
           <h3>Book</h3>
           <hr className="ruler" />
           <p>
-            <Link to="/bookings">Book Flight</Link>
+            <Link to="/book-flight">Book Flight</Link>
           </p>
           <p>
             <Link to="/travel-services">Travel Services</Link>
@@ -182,7 +182,7 @@ function Footer() {
             <Link to="/transportation">Transportation</Link>
           </p>
           <p>
-            <Link to="/search-flight">Search for Flight</Link>
+            <Link to="/book-flight">Search for Flight</Link>
           </p>
 
         </div>

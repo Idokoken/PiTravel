@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-//import { link } from "react-router-dom";
-import { Tablet } from "../Responsive";
+import { Tablet } from '../Responsive';
+import Booking from '../components/Booking';
 
 const Wrapper = styled.div`
   padding: 0;
@@ -32,25 +32,28 @@ const Wrapper = styled.div`
   }
   h3{
   	font-weight: 700;
+    text-align: center;
   }
 
 `
 
-function FlightRoutes() {
+function BookFlight() {
   return (
     <>
       <Header />
       <Wrapper>
         <div className="hero">
-          <h1>flight routes</h1>
+          <h1>Book Flight</h1>
         </div>
-        <div className="container content py-3">
-          <h3>Domestic Routes</h3>
-          <div className=""></div>
-          <h3>Regional Routes</h3>
-          <div className=""></div>
-          <h3>International Routes</h3>
-          <div className=""></div>
+        <div className="container content p-3">
+          <Booking />
+
+          <div>
+            <h3 className='my-4'>Available Flights</h3>
+            <p>Below is a list of some available flights</p>
+          </div>
+
+
         </div>
       </Wrapper>
       <Footer />
@@ -58,4 +61,4 @@ function FlightRoutes() {
   )
 }
 
-export default FlightRoutes;
+export default BookFlight

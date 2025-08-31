@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Tablet } from '../Responsive';
 //import { link } from "react-router-dom";
-import { Tablet } from "../Responsive";
+
 
 const Wrapper = styled.div`
   padding: 0;
@@ -30,32 +31,32 @@ const Wrapper = styled.div`
   .content{
   	min-height: 40vh;
   }
-  h3{
+  h5{
   	font-weight: 700;
   }
 
 `
 
-function FlightRoutes() {
-  return (
-    <>
-      <Header />
-      <Wrapper>
-        <div className="hero">
-          <h1>flight routes</h1>
-        </div>
-        <div className="container content py-3">
-          <h3>Domestic Routes</h3>
-          <div className=""></div>
-          <h3>Regional Routes</h3>
-          <div className=""></div>
-          <h3>International Routes</h3>
-          <div className=""></div>
-        </div>
-      </Wrapper>
-      <Footer />
-    </>
-  )
+function Gallery() {
+    return (
+        <>
+            <Header />
+            <Wrapper>
+                <div className="hero">
+                    <h1>Gallery</h1>
+                </div>
+                <div className="container content p-3">
+                    <h2>memories from our travels</h2>
+
+
+
+
+
+                </div>
+            </Wrapper>
+            <Footer />
+        </>
+    )
 }
 
-export default FlightRoutes;
+export default Gallery

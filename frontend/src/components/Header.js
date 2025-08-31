@@ -64,12 +64,12 @@ function Header({ user }) {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/contact">
+                                <Link className="nav-link" to="/contact-us">
                                     Contact
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/book">
+                                <Link className="nav-link" to="/book-flight">
                                     Book
                                 </Link>
                             </li>

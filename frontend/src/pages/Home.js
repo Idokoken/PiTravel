@@ -87,7 +87,7 @@ const Wrapper = styled.div`
   	  display: flex;
   	  flex-direction: column;
   	  align-items: center;
-  	  border: 2px solid black;
+      box-shadow: 20px 20px 40px 5px rgba(176, 35, 35, 0.25);
   }
   .dest .img-container{
   	 width: 100%;

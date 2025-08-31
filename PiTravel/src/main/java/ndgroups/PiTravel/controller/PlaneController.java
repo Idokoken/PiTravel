@@ -22,7 +22,7 @@ public class PlaneController {
         try {
             Plane newPlane  =  planeService.addPlane(plane);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponse("user created", newPlane));
+                    .body(new ApiResponse("plane created", newPlane));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(e.getMessage(), null));
@@ -37,6 +37,18 @@ public class PlaneController {
                     .body(new ApiResponse("successful", plane));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse> getAllPlanes() {
+        try {
+            List<Plane> planes  =  planeService.getAllPlanes();
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse("successful", planes));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(e.getMessage(), null));
         }
     }
@@ -61,18 +73,6 @@ public class PlaneController {
                     .body(new ApiResponse("plane successfully deleted", null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse(e.getMessage(), null));
-        }
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<ApiResponse> getAllPlanes() {
-        try {
-            List<Plane> planes  =  planeService.getAllPlanes();
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", planes));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(e.getMessage(), null));
         }
     }
@@ -130,7 +130,7 @@ public class PlaneController {
             List<Plane>planes =  planeService.findAvailablePlanesByOriginAndDestinationAndDepartureDate(origin, destination,
                     departureDate);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("user created", null));
+                    .body(new ApiResponse("successful", planes));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ApiResponse(e.getMessage(), null));

@@ -9,6 +9,8 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import FlightRoutes from "./pages/FlightRoutes"
 import MediaCenter from "./pages/MediaCenter"
 import BaggagePolicy from "./pages/BaggagePolicy"
+import TravelServices from "./pages/TravelServices";
+import BookFlight from "./pages/BookFlight";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -23,6 +25,7 @@ import EditUser from './pages/admin/user/EditUser';
 import UserList from './pages/admin/user/UserList';
 
 import ScrollToTop from "./ScrollToTop";
+import Gallery from "./pages/Gallery";
 
 
 function App() {
@@ -33,14 +36,17 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/contact-us" element={<Contact />} />
+        <Route path="/about-us" element={<About />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/routes" element={<FlightRoutes />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/media-center" element={<MediaCenter />} />
+        <Route path="/travel-services" element={<TravelServices />} />
         <Route path="/baggage-policy" element={<BaggagePolicy />} />
+        <Route path="/book-flight" element={<BookFlight />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
 

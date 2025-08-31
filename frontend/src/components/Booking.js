@@ -68,25 +68,16 @@ function Booking() {
 
       <form className="details">
         <div className="">
-          <span>CheckIn</span>
-          <input type="date" id="checkInDate" name="filterDate" placeholder="12, 5 2024" />
+          <span>Origin</span>
+          <input type="text" id="origin" name="orgin" placeholder="origin" />
         </div>
         <div className="">
-          <span>Check-Out</span>
-          <input type="date" id="checkOutDate" name="filterDate" placeholder="12, 5 2024" />
+          <span>Destination</span>
+          <input type="text" id="destination" name="destination" placeholder="destination" />
         </div>
         <div className="">
-          <span>Room</span>
-          <select name="roomType" id="roomType">
-            <option value="" disabled>Select Room type</option>
-            <option value="single" selected>Single</option>
-            <option value="double">Double</option>
-            <option value="suit">Suit</option>
-            <option value="presidential">Presidential</option>
-            <option value="hostel">Hostel</option>
-            <option value="studio">Studio</option>
-
-          </select>
+          <span>Departure Date</span>
+          <input type="date" id="departureDate" name="departureDate" placeholder="" />
         </div>
         <div className="search-container">
           <button className="search" type="submit">Check Availability</button>

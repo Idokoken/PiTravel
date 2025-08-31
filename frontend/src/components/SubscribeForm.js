@@ -68,7 +68,7 @@ function SubscribeForm() {
 
   return (
     <Wrapper>
-      <h3>If you’d like to receive news about travel schedules, events ot special offerings
+      <h3>If you’d like to receive news about travel schedules, events and special offerings
       </h3>
       <form onSubmit={handleSubmit}>
         <input

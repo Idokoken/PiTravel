@@ -1,4 +1,6 @@
 import React from 'react'
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Tablet } from '../Responsive'
@@ -11,14 +13,14 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     min-height: 50vh;
-    background-image: url('/images/error1.jpg'); 
+    background-image: url('/images/error1.png'); 
     background-size: cover;
     background-position: 100% 100%;
      ${Tablet({ minHeight: '70vh' })}
 
     
     .hero{
-        background-color: rgba(0, 0 , 0, 0.4);
+        background-color: rgba(176, 35, 35, 0.8);;
         padding: 20px;
         min-width: 80%;
         display: flex;
@@ -47,12 +49,16 @@ const Wrapper = styled.div`
 
 function ErrorPage() {
     return (
-        <Wrapper>
-            <div className='hero'>
-                <h3>Page Not Found</h3>
-                <Link to="/" className='btn'>Go back home</Link>
-            </div>
-        </Wrapper>
+        <>
+            <Header />
+            <Wrapper>
+                <div className='hero'>
+                    <h3>Page Not Found</h3>
+                    <Link to="/" className='btn'>Go back home</Link>
+                </div>
+            </Wrapper>
+            <Footer />
+        </>
     )
 }
 

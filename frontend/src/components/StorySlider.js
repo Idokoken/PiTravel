@@ -120,7 +120,7 @@ function ImageSlider() {
                             <div className="slider-overlay"></div> {/* Transparent overlay */}
                             <div className="slider-content">
                                 <h3>{slide.title}</h3>
-                                <Link to="/about">{slide.description}</Link>
+                                <Link to="/about-us">{slide.description}</Link>
                             </div>
                         </div>
                     </div>
