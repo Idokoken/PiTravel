@@ -1,10 +1,13 @@
 package ndgroups.PiTravel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ndgroups.PiTravel.Enum.USER_ROLE;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,10 +25,14 @@ public class User {
     private Integer id;
     private String username;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    private String role;
+    private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Booking> bookings = new ArrayList<>();
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
 
     public Integer getId() {
         return id;
@@ -59,11 +66,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public USER_ROLE getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(USER_ROLE role) {
         this.role = role;
     }
 

@@ -1,6 +1,7 @@
 package ndgroups.PiTravel.Data;
 
 import lombok.RequiredArgsConstructor;
+import ndgroups.PiTravel.Enum.USER_ROLE;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class DataInitializer implements ApplicationListener<ApplicationReadyEven
            user.setUsername("User" + i);
            user.setEmail(defaultEmail);
            user.setPassword(passwordEncoder.encode("123456"));
-           user.setRole("USER");
+           user.setRole(USER_ROLE.ROLE_CUSTOMER);
            userRepository.save(user);
             System.out.println("Default user " + i + " created successfully.");
         }
@@ -55,7 +56,7 @@ public class DataInitializer implements ApplicationListener<ApplicationReadyEven
             user.setUsername("Admin" + i);
             user.setEmail(defaultEmail);
             user.setPassword(passwordEncoder.encode("123456"));
-            user.setRole("ADMIN");
+            user.setRole(USER_ROLE.ROLE_ADMIN);
             userRepository.save(user);
             System.out.println("Default Admin user " + i + " created successfully.");
         }

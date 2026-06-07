@@ -2,13 +2,12 @@ package ndgroups.PiTravel.service.impl;
 
 import ndgroups.PiTravel.Exception.ResourceNotFoundException;
 import ndgroups.PiTravel.Exception.AlreadyExistException;
+import ndgroups.PiTravel.config.JwtProvider;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.UserRepository;
 import ndgroups.PiTravel.request.CreateUserRequest;
 import ndgroups.PiTravel.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private JwtProvider jwtProvider;
 
 
     @Override
@@ -75,13 +74,41 @@ public class UserService implements IUserService {
 
     @Override
     public User getUserInfo(String email) {
-            return userRepository.findByEmail(email)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            return userRepository.findByEmail(email);
+//                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Override
     public List<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findUserByJwtToken(String jwt) throws Exception {
+        String email = jwtProvider.getEmailFromJwtToken(jwt);
+        User user = userRepository.findByEmail(email);
+        if(user==null){
+            throw new Exception("user not found");
+        }
+        return user;
+    }
+
+    @Override
+    public User findUserByEmail(String email) throws Exception {
+        User user = userRepository.findByEmail(email);
+        if(user==null){
+            throw new Exception("user not found");
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByUserId(Integer id) throws Exception{
+        Optional<User> user = userRepository.findById(id);
+        if(user.isEmpty()){
+            throw new Exception("user not found with id " + id);
+        }
+        return user.get();
     }
 
 

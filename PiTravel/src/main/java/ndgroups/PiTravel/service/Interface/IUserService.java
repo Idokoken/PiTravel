@@ -14,4 +14,8 @@ public interface IUserService {
     List<User> getAllUsers();
     User getUserInfo(String email);
     List<User> findByUsername(String username);
+
+    public User findUserByJwtToken(String jwt) throws Exception;
+    public User findUserByEmail(String email) throws Exception;
+    User getUserByUserId(Integer id) throws Exception;
 }

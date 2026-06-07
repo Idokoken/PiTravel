@@ -28,6 +28,9 @@ public class Plane {
     private Double price;
     @OneToMany(mappedBy = "plane", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
+//    @OneToMany(mappedBy = "plane", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<CartItem> cartItem = new ArrayList<>();
+
 
     public Integer getId() {
         return id;
