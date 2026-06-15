@@ -4,18 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ndgroups.PiTravel.Enum.USER_ROLE;
-import ndgroups.PiTravel.config.JwtProvider;
 import ndgroups.PiTravel.dto.UserDTO;
 import ndgroups.PiTravel.emailService.EmailService;
-import ndgroups.PiTravel.model.Cart;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.CartRepository;
 import ndgroups.PiTravel.repository.UserRepository;
 import ndgroups.PiTravel.request.*;
 import ndgroups.PiTravel.response.APIResponse;
 import ndgroups.PiTravel.response.ApiResponseDto;
-import ndgroups.PiTravel.response.AuthResponse;
 import ndgroups.PiTravel.service.CustomUserDetailsService;
 import ndgroups.PiTravel.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import ndgroups.PiTravel.config.JwtProvider;
 
 import java.util.Collection;
 
@@ -63,7 +60,7 @@ public class AuthController {
 //                    newUser.getPassword());
 //            SecurityContextHolder.getContext().setAuthentication(authentication);
 //
-//            String jwt = jwtProvider.generateToken(authentication);
+//            String jwt = jwtProvider.generateToken(authe v ntication);
 //
 //            AuthResponse response = new AuthResponse();
 //            response.setJwt(jwt);
