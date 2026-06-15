@@ -1,16 +1,26 @@
 package ndgroups.PiTravel.service.impl;
 
+import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
+import ndgroups.PiTravel.Enum.USER_ROLE;
 import ndgroups.PiTravel.Exception.ResourceNotFoundException;
 import ndgroups.PiTravel.Exception.AlreadyExistException;
 import ndgroups.PiTravel.config.JwtProvider;
+import ndgroups.PiTravel.emailService.EmailService;
+import ndgroups.PiTravel.model.Cart;
 import ndgroups.PiTravel.model.User;
+import ndgroups.PiTravel.repository.CartRepository;
 import ndgroups.PiTravel.repository.UserRepository;
 import ndgroups.PiTravel.request.CreateUserRequest;
+import ndgroups.PiTravel.request.LoginRequest;
+import ndgroups.PiTravel.request.RegisterUserRequest;
 import ndgroups.PiTravel.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;;
 
@@ -22,6 +32,10 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
     @Autowired
     private JwtProvider jwtProvider;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    private CartRepository cartRepository;
 
 
     @Override
@@ -39,6 +53,105 @@ public class UserService implements IUserService {
     }
 //     if(user.getRole() == null || user.getRole().isBlank()){
 //            user.setRole("USER");
+
+    @Override
+    public User registerUser(RegisterUserRequest request) throws MessagingException,
+            UnsupportedEncodingException {
+        User existingUser = userRepository.findByEmail(request.getEmail());
+        if (existingUser != null) {
+            if (existingUser.getIsVerified()) {
+                throw new IllegalArgumentException("Email already exists");
+            }
+            // Unverified account — resend fresh verification email
+            String newToken = java.util.UUID.randomUUID().toString();
+            existingUser.setVerificationToken(newToken);
+            existingUser.setTokenExpiry(LocalDateTime.now().plusHours(24));
+            userRepository.save(existingUser);
+            emailService.sendVerificationEmail(existingUser.getEmail(), newToken);
+            return existingUser;
+        }
+
+        // Validate password strength
+        if (!isStrongPassword(request.getPassword())) {
+            throw new IllegalArgumentException(
+                    "Password must be at least 6 characters long and include at least one letter, one number, and one special character.");
+        }
+
+        String token = java.util.UUID.randomUUID().toString();
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        LocalDateTime now = LocalDateTime.now();
+
+        User savedUser;
+
+        if (request.getRole() == USER_ROLE.ROLE_CUSTOMER) {
+            // Create Buyer profile + Cart in one go
+            User user = new User();
+            user.setUsername(request.getUsername());
+            user.setEmail(request.getEmail());
+            user.setPassword(encodedPassword);
+            user.setPhone(request.getPhone());
+            user.setRole(USER_ROLE.ROLE_CUSTOMER);
+            user.setCreated_at(now);
+            user.setIsVerified(false);
+            user.setVerificationToken(token);
+            user.setTokenExpiry(now.plusHours(24));
+
+            Cart cart = new Cart();
+            cart.setUser(user);
+            user.setCart(cart);
+
+            savedUser = userRepository.save(user);
+        } else {
+            User user = new User();
+            user.setUsername(request.getUsername());
+            user.setEmail(request.getEmail());
+            user.setPassword(encodedPassword);
+            user.setPhone(request.getPhone());
+            user.setRole(request.getRole());
+            user.setCreated_at(now);
+            user.setIsVerified(false);
+            user.setVerificationToken(token);
+            user.setTokenExpiry(now.plusHours(24));
+
+            savedUser = userRepository.save(user);
+        }
+
+        emailService.sendVerificationEmail(savedUser.getEmail(), savedUser.getVerificationToken());
+
+        return savedUser;
+    }
+
+    @Override
+    public User login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.getEmail());
+        if (user == null) {
+            return null;
+        }
+
+        if (user.isSuspended()) {
+            throw new IllegalArgumentException("Account Suspended");
+        }
+
+        if (user.isDeleted()) {
+            throw new IllegalArgumentException("Account Deleted");
+        }
+
+        if (!user.getIsVerified()) {
+            if (user.getRole() == USER_ROLE.ROLE_ADMIN) {
+                user.setIsVerified(true);
+                userRepository.save(user);
+            } else {
+                throw new IllegalArgumentException("Email not verified");
+            }
+        }
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Invalid credentials");
+        }
+
+        return user;
+    }
+
     @Override
     public User getUserById(Integer userId) {
         return userRepository.findById(userId)
@@ -73,9 +186,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUserInfo(String email) {
+    public User getUserInfo(String email) throws Exception {
             return userRepository.findByEmail(email);
-//                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//                    .orElseThrow(() -> new Exception("User not found"));
     }
 
     @Override
@@ -95,11 +208,8 @@ public class UserService implements IUserService {
 
     @Override
     public User findUserByEmail(String email) throws Exception {
-        User user = userRepository.findByEmail(email);
-        if(user==null){
-            throw new Exception("user not found");
-        }
-        return user;
+        return userRepository.findByEmail(email);
+//                .orElseThrow(() -> new Exception("User not found"));
     }
 
     @Override
@@ -110,6 +220,160 @@ public class UserService implements IUserService {
         }
         return user.get();
     }
+
+    @Override
+    public boolean changePassword(String email, String oldPassword, String newPassword) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return false;
+        }
+
+        if (!user.getIsVerified()) {
+            throw new IllegalArgumentException("Email not verified");
+        }
+
+        // Verify old password
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IllegalArgumentException("Old password is incorrect");
+        }
+
+        // Validate new password
+        if (!isStrongPassword(newPassword)) {
+            throw new IllegalArgumentException("WEAK_PASSWORD");
+        }
+
+        // Update password
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdated_at(LocalDateTime.now());
+        userRepository.save(user);
+        return true;
+    }
+
+    private boolean isStrongPassword(String password) {
+        String pattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=!.,?]).{6,}$";
+        return password != null && password.matches(pattern);
+    }
+
+    @Override
+    public boolean verifyUserByToken(String token) {
+        if (token == null || token.isEmpty())
+            return false;
+
+        // Find user by token
+        User user = userRepository.findByVerificationToken(token).orElse(null);
+        if (user == null)
+            return false;
+
+        // Check if token has expired
+        if (user.getTokenExpiry() == null || user.getTokenExpiry().isBefore(LocalDateTime.now())) {
+            return false;
+        }
+
+        // Activate user
+        user.setIsVerified(true);
+        user.setVerificationToken(null); // clear token
+        user.setTokenExpiry(null); // clear expiry
+        user.setUpdated_at(LocalDateTime.now());
+
+        userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public String leaveAccount(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Invalid credentials");
+        }
+
+        // Check blockers
+//        if (ordersRepository.existsByBuyerIdAndStatusIn(user.getId(),
+//                List.of(OrderStatus.PENDING, OrderStatus.PROCESSING, OrderStatus.SHIPPED, OrderStatus.PAID))) {
+//            return "BLOCKED: You have pending or active orders. Please wait until they are delivered or cancelled.";
+//        }
+
+
+
+        // Hard delete — manual deletes first to avoid FK constraint errors
+//        if (user instanceof Buyer user) {
+//
+//                      recentlyViewedRepository.deleteByBuyer(user);
+//            recommendationsRepository.deleteByUserId(user.getId());
+//            savedProductsRepository.deleteByBuyerId(user.getId());
+//            userRepository.delete(user);
+//        } else {
+//            myUserRepository.delete(user);
+//        }
+        userRepository.delete(user);
+        return "SUCCESS";
+    }
+
+    @Override
+    public boolean checkEmailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean isEmailVerified(String email) {
+             User user = userRepository.findByEmail(email);
+        return user != null && user.getIsVerified();
+    }
+
+    @Override
+    public void sendPasswordResetOtp(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("No account found with this email");
+        }
+
+        if (!user.getIsVerified()) {
+            throw new IllegalArgumentException("Please verify your email first");
+        }
+
+        String otp = String.format("%06d", new java.util.Random().nextInt(1000000));
+        user.setResetOtp(otp);
+        user.setResetOtpExpiry(LocalDateTime.now().plusMinutes(10));
+        userRepository.save(user);
+
+        emailService.sendPasswordResetOtp(email, otp);
+    }
+
+    @Override
+    public void resetPassword(String email, String otp, String newPassword) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("No account found with this email");
+        }
+
+        if (!user.getIsVerified()) {
+            throw new IllegalArgumentException("Please verify your email first");
+        }
+
+        if (user.getResetOtp() == null || !user.getResetOtp().equals(otp)) {
+            throw new IllegalArgumentException("Invalid OTP");
+        }
+
+        if (user.getResetOtpExpiry() == null || user.getResetOtpExpiry().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("OTP has expired");
+        }
+
+        if (!isStrongPassword(newPassword)) {
+            throw new IllegalArgumentException(
+                    "Password must be at least 6 characters long and include at least one letter, one number, and one special character.");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetOtp(null);
+        user.setResetOtpExpiry(null);
+        user.setUpdated_at(LocalDateTime.now());
+        userRepository.save(user);
+    }
+
 
 
 }

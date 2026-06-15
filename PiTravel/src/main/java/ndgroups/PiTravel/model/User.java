@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ndgroups.PiTravel.Enum.USER_ROLE;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 @AllArgsConstructor
@@ -27,6 +26,7 @@ public class User {
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    private String phone;
     private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Booking> bookings = new ArrayList<>();
@@ -34,51 +34,88 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
 
-    public Integer getId() {
-        return id;
-    }
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
+    @Column(name = "profile_picture")
+    private String profilePicture;
+    // Track whether the user has verified their email
+    @Column(nullable = false)
+    private boolean isVerified = false;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    // Store the verification token
+    private String verificationToken;
 
-    public String getUsername() {
-        return username;
-    }
+    // Store token expiry date/time
+    private LocalDateTime tokenExpiry;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    private LocalDateTime lastLogin;
 
-    public String getEmail() {
+    private String resetOtp;
+    private LocalDateTime resetOtpExpiry;
+
+    @Column(nullable = false)
+    private boolean isSuspended = false;
+
+    @Column(nullable = false)
+    private boolean isDeleted = false;
+
+    public String getLoginEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setIsVerified(boolean b) {
+        isVerified = b;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean getIsVerified() {
+        return isVerified;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public USER_ROLE getRole() {
-        return role;
-    }
-
-    public void setRole(USER_ROLE role) {
-        this.role = role;
-    }
-
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
+//
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    public USER_ROLE getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(USER_ROLE role) {
+//        this.role = role;
+//    }
+//
+//    public List<Booking> getBookings() {
+//        return bookings;
+//    }
+//
+//    public void setBookings(List<Booking> bookings) {
+//        this.bookings = bookings;
+//    }
 }

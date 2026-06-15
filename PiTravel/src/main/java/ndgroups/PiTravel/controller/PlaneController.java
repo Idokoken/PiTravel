@@ -1,7 +1,7 @@
 package ndgroups.PiTravel.controller;
 
 import ndgroups.PiTravel.model.Plane;
-import ndgroups.PiTravel.response.ApiResponse;
+import ndgroups.PiTravel.response.APIResponse;
 import ndgroups.PiTravel.service.Interface.IPlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,122 +18,122 @@ public class PlaneController {
     private IPlaneService planeService;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> AddPlane(@RequestBody Plane plane) {
+    public ResponseEntity<APIResponse> AddPlane(@RequestBody Plane plane) {
         try {
             Plane newPlane  =  planeService.addPlane(plane);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponse("plane created", newPlane));
+                    .body(new APIResponse("plane created", newPlane));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
 
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse> getOnePlane(@PathVariable Integer id) {
+    public ResponseEntity<APIResponse> getOnePlane(@PathVariable Integer id) {
         try {
             Plane plane  =  planeService.getPlaneById(id);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", plane));
+                    .body(new APIResponse("successful", plane));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ApiResponse> getAllPlanes() {
+    public ResponseEntity<APIResponse> getAllPlanes() {
         try {
             List<Plane> planes  =  planeService.getAllPlanes();
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", planes));
+                    .body(new APIResponse("successful", planes));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> updatePlane(@PathVariable Integer id, @RequestBody Plane updatePlane)  {
+    public ResponseEntity<APIResponse> updatePlane(@PathVariable Integer id, @RequestBody Plane updatePlane)  {
         try {
             Plane updatedPlane  =  planeService.updatePlane(id, updatePlane);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponse("plane updated", updatedPlane));
+                    .body(new APIResponse("plane updated", updatedPlane));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse> deletePlane( @PathVariable Integer id)  {
+    public ResponseEntity<APIResponse> deletePlane(@PathVariable Integer id)  {
         try {
             planeService.deletePlane(id);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("plane successfully deleted", null));
+                    .body(new APIResponse("plane successfully deleted", null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
 
     @GetMapping("/available")
-    public ResponseEntity<ApiResponse> getAllAvailablePlanes() {
+    public ResponseEntity<APIResponse> getAllAvailablePlanes() {
         try {
             List<Plane> planes  =  planeService.getAllAvailablePlanes();
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", planes));
+                    .body(new APIResponse("successful", planes));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
     @GetMapping("/name")
-    public ResponseEntity<ApiResponse> getPlanesByName(@RequestParam String name) {
+    public ResponseEntity<APIResponse> getPlanesByName(@RequestParam String name) {
         try {
             List<Plane> planes  =  planeService.getPlanesByPlaneName(name);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", planes));
+                    .body(new APIResponse("successful", planes));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
     @GetMapping("/departureDate")
-    public ResponseEntity<ApiResponse> getPlanesByDepartureDate(@RequestParam LocalDate departureDate) {
+    public ResponseEntity<APIResponse> getPlanesByDepartureDate(@RequestParam LocalDate departureDate) {
         try {
             List<Plane> planes  =  planeService.getPlanesByDepartureDate(departureDate);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", planes));
+                    .body(new APIResponse("successful", planes));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
 
     @GetMapping("/destination")
-    public ResponseEntity<ApiResponse> getPlanesByDestination(@RequestParam String destination) {
+    public ResponseEntity<APIResponse> getPlanesByDestination(@RequestParam String destination) {
         try {
             List<Plane> planes  =  planeService.getPlanesByDestination(destination);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", planes));
+                    .body(new APIResponse("successful", planes));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ApiResponse> searchPlane(@RequestParam String origin, @RequestParam String destination,
+    public ResponseEntity<APIResponse> searchPlane(@RequestParam String origin, @RequestParam String destination,
                                                    @RequestParam LocalDate departureDate) {
         try {
             List<Plane>planes =  planeService.findAvailablePlanesByOriginAndDestinationAndDepartureDate(origin, destination,
                     departureDate);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("successful", planes));
+                    .body(new APIResponse("successful", planes));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse(e.getMessage(), null));
+                    .body(new APIResponse(e.getMessage(), null));
         }
     }
 }
