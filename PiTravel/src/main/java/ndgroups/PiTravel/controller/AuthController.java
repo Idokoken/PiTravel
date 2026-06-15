@@ -42,8 +42,8 @@ public class AuthController {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-//    @Autowired
-//    private EmailService emailService;
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private JwtProvider jwtProvider;
 
@@ -79,10 +79,10 @@ public class AuthController {
             userDTO.setUpdated_at(newUser.getUpdated_at());
 
             // Send Notification email after successful account creation
-//            emailService.sendAccountCreationNotificationEmail(
-//                        newUser.getEmail(),
-//                        newUser.getUsername()
-//                );
+            emailService.sendAccountCreationNotificationEmail(
+                        newUser.getEmail(),
+                        newUser.getUsername()
+                );
 
 
             return ResponseEntity.status(HttpStatus.CREATED)
