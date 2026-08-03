@@ -2,10 +2,10 @@ package ndgroups.PiTravel.service.impl;
 
 import ndgroups.PiTravel.Exception.ResourceNotFoundException;
 import ndgroups.PiTravel.model.Booking;
-import ndgroups.PiTravel.model.Plane;
+import ndgroups.PiTravel.model.Aircraft;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.BookingRepository;
-import ndgroups.PiTravel.repository.PlaneRepository;
+import ndgroups.PiTravel.repository.AircraftRepository;
 import ndgroups.PiTravel.repository.UserRepository;
 import ndgroups.PiTravel.security.utils.Utils;
 import ndgroups.PiTravel.service.Interface.IBookingService;
@@ -22,7 +22,7 @@ public class BookingService implements IBookingService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private PlaneRepository planeRepository;
+    private AircraftRepository aircraftRepository;
 
 
    @Override
@@ -30,9 +30,9 @@ public class BookingService implements IBookingService {
         Booking booking = new Booking();
         try {
             User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user not found"));
-            Plane plane = planeRepository.findById(planeId).orElseThrow(() -> new ResourceNotFoundException("user not found"));
+            Aircraft aircraft = aircraftRepository.findById(planeId).orElseThrow(() -> new ResourceNotFoundException("user not found"));
 
-            bookingRequest.setPlane(plane);
+            bookingRequest.setAircraft(aircraft);
             bookingRequest.setUser(user);
             String bookingConfirmationCode = Utils.generateRandomConfirmationCode(10);
             bookingRequest.setBookingConfirmationCode(bookingConfirmationCode);
@@ -77,9 +77,9 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public List<Booking> findBookingsByPlane(Integer planeId) {
-       Optional<Plane> plane  = planeRepository.findById(planeId);
-        return bookingRepository.findByPlane(plane.get());
+    public List<Booking> findBookingsByAircraft(Integer planeId) {
+       Optional<Aircraft> plane  = aircraftRepository.findById(planeId);
+        return bookingRepository.findByAircraft(plane.get());
     }
 
     @Override

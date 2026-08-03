@@ -11,8 +11,6 @@ import java.util.List;
 
 
 public interface IUserService {
-    User registerUser(RegisterUserRequest request) throws MessagingException, UnsupportedEncodingException;
-    User login(LoginRequest request);
     User createUser(CreateUserRequest request);
     User getUserById(Integer userId);
     User updateUser(Integer userId, User user);

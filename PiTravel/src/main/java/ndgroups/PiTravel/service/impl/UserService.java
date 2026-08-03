@@ -1,25 +1,19 @@
 package ndgroups.PiTravel.service.impl;
 
-import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
-import ndgroups.PiTravel.Enum.USER_ROLE;
 import ndgroups.PiTravel.Exception.ResourceNotFoundException;
 import ndgroups.PiTravel.Exception.AlreadyExistException;
 import ndgroups.PiTravel.config.JwtProvider;
 import ndgroups.PiTravel.emailService.EmailService;
-import ndgroups.PiTravel.model.Cart;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.repository.CartRepository;
 import ndgroups.PiTravel.repository.UserRepository;
 import ndgroups.PiTravel.request.CreateUserRequest;
-import ndgroups.PiTravel.request.LoginRequest;
-import ndgroups.PiTravel.request.RegisterUserRequest;
 import ndgroups.PiTravel.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;;
@@ -54,103 +48,7 @@ public class UserService implements IUserService {
 //     if(user.getRole() == null || user.getRole().isBlank()){
 //            user.setRole("USER");
 
-    @Override
-    public User registerUser(RegisterUserRequest request) throws MessagingException,
-            UnsupportedEncodingException {
-        User existingUser = userRepository.findByEmail(request.getEmail());
-        if (existingUser != null) {
-            if (existingUser.getIsVerified()) {
-                throw new IllegalArgumentException("Email already exists");
-            }
-            // Unverified account — resend fresh verification email
-            String newToken = java.util.UUID.randomUUID().toString();
-            existingUser.setVerificationToken(newToken);
-            existingUser.setTokenExpiry(LocalDateTime.now().plusHours(24));
-            userRepository.save(existingUser);
-            emailService.sendVerificationEmail(existingUser.getEmail(), newToken);
-            return existingUser;
-        }
 
-        // Validate password strength
-        if (!isStrongPassword(request.getPassword())) {
-            throw new IllegalArgumentException(
-                    "Password must be at least 6 characters long and include at least one letter, one number, and one special character.");
-        }
-
-        String token = java.util.UUID.randomUUID().toString();
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
-        LocalDateTime now = LocalDateTime.now();
-
-        User savedUser;
-
-        if (request.getRole() == USER_ROLE.ROLE_CUSTOMER) {
-            // Create Buyer profile + Cart in one go
-            User user = new User();
-            user.setUsername(request.getUsername());
-            user.setEmail(request.getEmail());
-            user.setPassword(encodedPassword);
-            user.setPhone(request.getPhone());
-            user.setRole(USER_ROLE.ROLE_CUSTOMER);
-            user.setCreated_at(now);
-            user.setIsVerified(false);
-            user.setVerificationToken(token);
-            user.setTokenExpiry(now.plusHours(24));
-
-            Cart cart = new Cart();
-            cart.setUser(user);
-            user.setCart(cart);
-
-            savedUser = userRepository.save(user);
-        } else {
-            User user = new User();
-            user.setUsername(request.getUsername());
-            user.setEmail(request.getEmail());
-            user.setPassword(encodedPassword);
-            user.setPhone(request.getPhone());
-            user.setRole(request.getRole());
-            user.setCreated_at(now);
-            user.setIsVerified(false);
-            user.setVerificationToken(token);
-            user.setTokenExpiry(now.plusHours(24));
-
-            savedUser = userRepository.save(user);
-        }
-
-        emailService.sendVerificationEmail(savedUser.getEmail(), savedUser.getVerificationToken());
-
-        return savedUser;
-    }
-
-    @Override
-    public User login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail());
-        if (user == null) {
-            return null;
-        }
-
-        if (user.isSuspended()) {
-            throw new IllegalArgumentException("Account Suspended");
-        }
-
-        if (user.isDeleted()) {
-            throw new IllegalArgumentException("Account Deleted");
-        }
-
-        if (!user.getIsVerified()) {
-            if (user.getRole() == USER_ROLE.ROLE_ADMIN) {
-                user.setIsVerified(true);
-                userRepository.save(user);
-            } else {
-                throw new IllegalArgumentException("Email not verified");
-            }
-        }
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid credentials");
-        }
-
-        return user;
-    }
 
     @Override
     public User getUserById(Integer userId) {

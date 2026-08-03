@@ -17,7 +17,7 @@ public class BookingDTO {
     private Integer totalNumOfGuest;
     private String bookingConfirmationCode;
     private UserDTO user;
-    private PlaneDTO plane;
+    private AircraftDTO plane;
     private LocalDateTime CreatedAt;
     private LocalDateTime updatedAt;
 }

@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -28,5 +26,5 @@ public class CartItem {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "plane_id")
-    private Plane plane;
+    private Aircraft aircraft;
 }

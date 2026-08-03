@@ -25,8 +25,8 @@ public class Booking {
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "plane_id")
-    private Plane plane;
+    @JoinColumn(name = "aircraft_id")
+    private Aircraft aircraft;
     @CreationTimestamp
     private LocalDateTime CreatedAt;
 
@@ -71,12 +71,12 @@ public class Booking {
         this.user = user;
     }
 
-    public Plane getPlane() {
-        return plane;
+    public Aircraft getAircraft() {
+        return aircraft;
     }
 
-    public void setPlane(Plane plane) {
-        this.plane = plane;
+    public void setAircraft(Aircraft aircraft) {
+        this.aircraft = aircraft;
     }
 
     public LocalDateTime getCreatedAt() {

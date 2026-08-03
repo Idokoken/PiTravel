@@ -4,7 +4,8 @@ import ndgroups.PiTravel.Exception.AlreadyExistException;
 import ndgroups.PiTravel.Exception.ResourceNotFoundException;
 import ndgroups.PiTravel.model.User;
 import ndgroups.PiTravel.request.CreateUserRequest;
-import ndgroups.PiTravel.response.APIResponse;
+import ndgroups.PiTravel.response.ApiResponseDto;
+import ndgroups.PiTravel.response.ApiResponseDto;
 import ndgroups.PiTravel.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,84 +23,95 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<APIResponse> createUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<ApiResponseDto<User>> createUser(@RequestBody CreateUserRequest request) {
         try {
             User user = userService.createUser(request);
-//            UserDTO userDto = userService.convertUserToDto(user);
-            return ResponseEntity.ok(new APIResponse("user successfully created", user));
+            return ResponseEntity.ok(new ApiResponseDto<>(true, HttpStatus.OK.value(), user,
+                    "user successfully created"));
         } catch (AlreadyExistException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new APIResponse(e.getMessage(), null));
+                    .body(new ApiResponseDto<>(false, HttpStatus.CONFLICT.value(),
+                            null,e.getMessage()));
         }
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<APIResponse> getUserById(@PathVariable Integer userId) {
+    public ResponseEntity<ApiResponseDto<User>> getUserById(@PathVariable Integer userId) {
         try {
             User user = userService.getUserById(userId);
-//            UserDTO userDto = userService.convertUserToDto(user);
-            return ResponseEntity.ok(new APIResponse("success", user));
+            return ResponseEntity.ok(new ApiResponseDto<>(true, HttpStatus.OK.value(), user,
+                    "success"));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new APIResponse(e.getMessage(), null));
+                    .body(new ApiResponseDto<>(false, HttpStatus.NOT_FOUND.value(),
+                            null,e.getMessage()));
         }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<APIResponse> getAllUsers() {
+    public ResponseEntity<ApiResponseDto<List<User>>> getAllUsers() {
         try {
             List<User> users = userService.getAllUsers();
 //            UserDTO userDto = userService.convertUserToDto(user);
-            return ResponseEntity.ok(new APIResponse("success", users));
+            return ResponseEntity.ok(new ApiResponseDto<>(true, HttpStatus.OK.value(), users,
+                    "success"));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new APIResponse(e.getMessage(), null));
+                    .body(new ApiResponseDto<>(false, HttpStatus.NOT_FOUND.value(),
+                            null,e.getMessage()));
         }
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<APIResponse> updateUser(@PathVariable Integer id, @RequestBody User request) {
+    public ResponseEntity<ApiResponseDto<User>> updateUser(@PathVariable Integer id,
+                                                           @RequestBody User request) {
         try {
             User user = userService.updateUser(id, request);
-            return ResponseEntity.ok(new APIResponse("user successfully created", user));
+            return ResponseEntity.ok(new ApiResponseDto<>(true, HttpStatus.OK.value(), user,
+                    "user successfully created"));
         } catch (AlreadyExistException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new APIResponse(e.getMessage(), null));
+                    .body(new ApiResponseDto<>(false, HttpStatus.CONFLICT.value(),
+                            null,e.getMessage()));
         }
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<APIResponse> deleteUser(@PathVariable  Integer userId) {
+    public ResponseEntity<ApiResponseDto<?>> deleteUser(@PathVariable  Integer userId) {
         try {
             userService.deleteUser(userId);
-            return ResponseEntity.ok(new APIResponse("success", null));
+            return ResponseEntity.ok(new ApiResponseDto<>(true, HttpStatus.OK.value(), null,
+                    "user successfully deleted"));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new APIResponse(e.getMessage(), null));
+                    .body(new ApiResponseDto<>(false, HttpStatus.NOT_FOUND.value(),
+                            null,e.getMessage()));
         }
     }
 
     @GetMapping("/info")
-    public ResponseEntity<APIResponse> getUserInfo(@RequestParam String email) throws Exception {
+    public ResponseEntity<ApiResponseDto<User>> getUserInfo(@RequestParam String email) throws Exception {
         try {
             User user = userService.getUserInfo(email);
-//            UserDTO userDto = userService.convertUserToDto(user);
-            return ResponseEntity.ok(new APIResponse("success", user));
+            return ResponseEntity.ok(new ApiResponseDto<>(true, HttpStatus.OK.value(), user,
+                    "success"));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new APIResponse(e.getMessage(), null));
+                    .body(new ApiResponseDto<>(false, HttpStatus.NOT_FOUND.value(),
+                            null,e.getMessage()));
         }
     }
 
     @GetMapping("/name")
-    public ResponseEntity<APIResponse> findByUsername(@RequestParam String username) {
+    public ResponseEntity<ApiResponseDto<List<User>>> findByUsername(@RequestParam String username) {
         try {
-            List<User> user = userService.findByUsername(username);
-//            UserDTO userDto = userService.convertUserToDto(user);
-            return ResponseEntity.ok(new APIResponse("success", user));
+            List<User> users = userService.findByUsername(username);
+            return ResponseEntity.ok(new ApiResponseDto<>(true, HttpStatus.OK.value(), users,
+                    "user successfully fetched"));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new APIResponse(e.getMessage(), null));
+                    .body(new ApiResponseDto<>(false, HttpStatus.NOT_FOUND.value(),
+                            null,e.getMessage()));
         }
     }
 

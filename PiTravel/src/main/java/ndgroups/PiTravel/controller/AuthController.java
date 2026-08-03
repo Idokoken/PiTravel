@@ -13,6 +13,7 @@ import ndgroups.PiTravel.request.*;
 import ndgroups.PiTravel.response.APIResponse;
 import ndgroups.PiTravel.response.ApiResponseDto;
 import ndgroups.PiTravel.service.CustomUserDetailsService;
+import ndgroups.PiTravel.service.Interface.IAuthService;
 import ndgroups.PiTravel.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,8 @@ public class AuthController {
     @Autowired
     private IUserService userService;
     @Autowired
+    private IAuthService authService;
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private UserRepository userRepository;
@@ -52,7 +55,7 @@ public class AuthController {
     public ResponseEntity<ApiResponseDto<UserDTO>>registerUser(@RequestBody RegisterUserRequest request)
             throws Exception {
         try {
-            User newUser = userService.registerUser(request);
+            User newUser = authService.registerUser(request);
 
 //            Authentication authentication = new UsernamePasswordAuthenticationToken(newUser.getEmail(),
 //                    newUser.getPassword());
@@ -114,7 +117,7 @@ public class AuthController {
 //        return new ResponseEntity<>(response, HttpStatus.OK);
 
         try {
-            User user = userService.login(request);
+            User user = authService.login(request);
 
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -266,6 +269,8 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Invalid credentials or blocked due to pending orders/disputes"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
+
+
     @DeleteMapping("/leave")
     public ResponseEntity<ApiResponseDto<String>> leaveAccount(@RequestBody LeaveAccountRequest request) {
         try {
