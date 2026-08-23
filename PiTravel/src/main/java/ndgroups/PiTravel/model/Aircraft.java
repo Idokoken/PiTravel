@@ -1,17 +1,16 @@
 package ndgroups.PiTravel.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 import ndgroups.PiTravel.Enum.AIRCRAFT_STATUS;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -44,7 +43,7 @@ public class Aircraft {
     private Integer maxAltitudeFeet;
     @Column(name = "year_of_manufacture")
     private Integer yearOfManufacture;
-    private LocalTime registrationDate;
+    private LocalDate registrationDate;
     private LocalDate nextMaintenanceDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)

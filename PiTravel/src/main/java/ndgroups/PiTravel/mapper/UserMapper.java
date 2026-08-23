@@ -1,10 +1,7 @@
 package ndgroups.PiTravel.mapper;
 
-import ndgroups.PiTravel.dto.CityDTO;
 import ndgroups.PiTravel.dto.UserDTO;
-import ndgroups.PiTravel.model.City;
 import ndgroups.PiTravel.model.User;
-import ndgroups.PiTravel.request.CityRequest;
 import ndgroups.PiTravel.request.CreateUserRequest;
 
 public class UserMapper {

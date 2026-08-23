@@ -15,6 +15,7 @@ public interface AircraftRepository extends JpaRepository<Aircraft, Integer> {
     Aircraft findByCode(String code);
     boolean existsByCode(String code);
     List<Aircraft>findByAircraftName(String aircraftName);
+    List<Aircraft> findByCurrentAirportId(Integer id);
 //    List<Aircraft>findByDepartureDate(LocalDate departureDate);
 //    List<Aircraft>findByDestination(String destination);
 //    @Query("SELECT t FROM Aircraft t WHERE " +

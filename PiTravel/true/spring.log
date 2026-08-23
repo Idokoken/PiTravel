@@ -1,6 +1,41 @@
-2026-08-03T01:37:24.843+01:00  WARN 15700 --- [PiTravel] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4h10m58s151ms444µs700ns).
-2026-08-03T04:34:01.405+01:00  INFO 15700 --- [PiTravel] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-08-03T04:34:02.416+01:00  INFO 15700 --- [PiTravel] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-08-03T04:34:03.089+01:00  INFO 15700 --- [PiTravel] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-08-03T04:34:04.444+01:00  INFO 15700 --- [PiTravel] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-08-03T04:34:04.767+01:00  INFO 15700 --- [PiTravel] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-23T02:49:27.466+01:00  INFO 10728 --- [PiTravel] [restartedMain] ndgroups.PiTravel.PiTravelApplication    : Starting PiTravelApplication using Java 18.0.1.1 with PID 10728 (C:\Users\USXER\Documents\projects\PiTravel\PiTravel\target\classes started by USXER in C:\Users\USXER\Documents\projects\PiTravel\PiTravel)
+2026-08-23T02:49:27.509+01:00  INFO 10728 --- [PiTravel] [restartedMain] ndgroups.PiTravel.PiTravelApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-08-23T02:49:28.052+01:00  INFO 10728 --- [PiTravel] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-23T02:49:28.053+01:00  INFO 10728 --- [PiTravel] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-23T02:49:48.040+01:00  INFO 10728 --- [PiTravel] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-23T02:49:48.945+01:00  INFO 10728 --- [PiTravel] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 832 ms. Found 8 JPA repository interfaces.
+2026-08-23T02:49:58.845+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-08-23T02:49:58.957+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-23T02:49:58.958+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2026-08-23T02:49:59.271+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-08-23T02:49:59.272+01:00  INFO 10728 --- [PiTravel] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 31216 ms
+2026-08-23T02:50:00.589+01:00  INFO 10728 --- [PiTravel] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-23T02:50:21.147+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-23T02:50:25.227+01:00  INFO 10728 --- [PiTravel] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.8.Final
+2026-08-23T02:50:27.714+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-08-23T02:50:33.882+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-23T02:50:35.326+01:00  INFO 10728 --- [PiTravel] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-23T02:51:16.377+01:00  INFO 10728 --- [PiTravel] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3dbca8c
+2026-08-23T02:51:16.513+01:00  INFO 10728 --- [PiTravel] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-23T02:51:37.782+01:00  INFO 10728 --- [PiTravel] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.44
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-23T02:52:37.200+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-23T02:53:00.420+01:00  INFO 10728 --- [PiTravel] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-23T02:53:07.652+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-23T02:53:14.419+01:00  WARN 10728 --- [PiTravel] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-23T02:53:14.573+01:00  INFO 10728 --- [PiTravel] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-23T02:53:22.544+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/PiTravel?createDatabaseIfNotExist=true'
+2026-08-23T02:53:23.025+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-08-23T02:53:23.459+01:00  INFO 10728 --- [PiTravel] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-08-23T02:53:23.497+01:00  INFO 10728 --- [PiTravel] [restartedMain] ndgroups.PiTravel.PiTravelApplication    : Started PiTravelApplication in 242.856 seconds (process running for 250.459)
+2026-08-23T03:28:05.528+01:00  INFO 10728 --- [PiTravel] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-23T03:28:06.236+01:00  INFO 10728 --- [PiTravel] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-08-23T03:28:06.530+01:00  INFO 10728 --- [PiTravel] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-23T03:28:06.987+01:00  INFO 10728 --- [PiTravel] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-23T03:28:07.059+01:00  INFO 10728 --- [PiTravel] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

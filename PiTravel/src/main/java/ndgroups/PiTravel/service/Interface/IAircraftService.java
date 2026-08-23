@@ -12,8 +12,9 @@ public interface IAircraftService {
     AircraftDTO updateAircraft(Integer aircraftId, AircraftRequest request) throws Exception;
     void deleteAircraft(Integer aircraftId);
     List<AircraftDTO> getAllAircraft();
-//    List<AircraftDTO> getAllAvailableAircraft();
     List<AircraftDTO>getAircraftByAircraftName(String aircraftName);
+    List<AircraftDTO> getAircraftByCurrentAirport(Integer id);
+//    List<AircraftDTO> getAllAvailableAircraft();
 //    List<AircraftDTO>getAircraftByDepartureDate(LocalDate departureDate);
 //    List<AircraftDTO>getAircraftByDestination(String destination);
 //    List<AircraftDTO> findAvailableAircraftByOriginAndDestinationAndDepartureDate(String origin,

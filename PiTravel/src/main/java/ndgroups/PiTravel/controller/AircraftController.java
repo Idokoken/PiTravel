@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -71,8 +70,8 @@ public class AircraftController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update Aircraft Detail")
-    public ResponseEntity<ApiResponseDto> updateAircraft(@PathVariable Integer id,
-                                                                   @Valid @RequestBody AircraftRequest request)  {
+    public ResponseEntity<ApiResponseDto> updateAircraft(@RequestBody AircraftRequest request,
+                                                         @PathVariable Integer id)  {
         try {
             AircraftDTO updatedAircraft =  aircraftService.updateAircraft(id, request);
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -100,6 +99,36 @@ public class AircraftController {
         }
     }
 
+    @GetMapping("/name")
+    @Operation(summary = "Get Aircraft Detail By the Aircraft name")
+    public ResponseEntity<ApiResponseDto> getAircraftByName(@RequestParam String name) {
+        try {
+            List<AircraftDTO> aircrafts =  aircraftService.getAircraftByAircraftName(name);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponseDto<>(true, HttpStatus.OK.value(), aircrafts,
+                            "successful"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponseDto<>(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            null, e.getMessage()));
+        }
+    }
+
+    @GetMapping("/airport/{id}")
+    @Operation(summary = "Get Aircraft By Current Aircraft ID")
+    public ResponseEntity<ApiResponseDto> getAircraftByCurrentAirport(@PathVariable Integer id) {
+        try {
+            List<AircraftDTO> aircraft =  aircraftService.getAircraftByCurrentAirport(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponseDto<>(true, HttpStatus.OK.value(), aircraft,
+                            "successful"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponseDto<>(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            null, e.getMessage()));
+        }
+    }
+
 //    @GetMapping("/available")
 //    @Operation(summary = "Get list of all available Aircraft/Flight")
 //    public ResponseEntity<ApiResponseDto> getAllAvailableAircraft() {
@@ -115,20 +144,7 @@ public class AircraftController {
 //        }
 //    }
 
-    @GetMapping("/name")
-    @Operation(summary = "Get Aircraft Detail By the Aircraft name")
-    public ResponseEntity<ApiResponseDto> getAircraftByName(@RequestParam String name) {
-        try {
-            List<AircraftDTO> aircrafts =  aircraftService.getAircraftByAircraftName(name);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponseDto<>(true, HttpStatus.OK.value(), aircrafts,
-                            "successful"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseDto<>(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                            null, e.getMessage()));
-        }
-    }
+
 
 //    @GetMapping("/departureDate")
 //    @Operation(summary = "Get list Aircraft by departure date")

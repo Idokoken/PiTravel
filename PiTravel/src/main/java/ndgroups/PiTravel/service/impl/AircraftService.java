@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import ndgroups.PiTravel.Exception.ResourceNotFoundException;
 import ndgroups.PiTravel.dto.AircraftDTO;
 import ndgroups.PiTravel.mapper.AircraftMapper;
-import ndgroups.PiTravel.mapper.AirportMapper;
 import ndgroups.PiTravel.model.Aircraft;
 import ndgroups.PiTravel.repository.AircraftRepository;
 import ndgroups.PiTravel.request.AircraftRequest;
@@ -12,9 +11,7 @@ import ndgroups.PiTravel.service.Interface.IAircraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,11 +25,12 @@ public class AircraftService implements IAircraftService {
             throw new Exception("aircraft with code already exist");
         }
         Aircraft aircraft = AircraftMapper.toAircraftEntity(request);
+        if(aircraft.getSeatingCapacity() < aircraft.getTotalSeats()){
+            throw new Exception("Seating Capacity can't exceed total seat");
+        }
+
         Aircraft savedAircraft = aircraftRepository.save(aircraft);
         return AircraftMapper.toAircraftDto(savedAircraft);
-
-
-
     }
     @Override
     public AircraftDTO getAircraftById(Integer id) {
@@ -45,7 +43,8 @@ public class AircraftService implements IAircraftService {
     public AircraftDTO updateAircraft(Integer aircraftId, AircraftRequest request) throws Exception {
         Aircraft aircraft = aircraftRepository.findById(aircraftId)
                 .orElseThrow(() -> new Exception("aircraft with ID not found"));
-        if(aircraftRepository.existsByCode(request.getCode())){
+        if(request.getCode() != null && !aircraft.getCode().equals(request.getCode())
+                && aircraftRepository.existsByCode(request.getCode())){
             throw new Exception("aircraft with code already exist");
         }
 
@@ -68,17 +67,23 @@ public class AircraftService implements IAircraftService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public List<AircraftDTO> getAllAvailableAircraft() {
-//        return aircraftRepository.findAvailableAircraft(LocalDate.now()).stream().map(
-//                AircraftMapper::toAircraftDto).collect(Collectors.toList());
-//    }
-
     @Override
     public List<AircraftDTO> getAircraftByAircraftName(String aircraftName) {
         return aircraftRepository.findByAircraftName(aircraftName).stream().map(
                 AircraftMapper::toAircraftDto).collect(Collectors.toList());
     }
+
+    @Override
+    public List<AircraftDTO> getAircraftByCurrentAirport(Integer id) {
+        return aircraftRepository.findByCurrentAirportId(id).stream().map(AircraftMapper::toAircraftDto)
+                .collect(Collectors.toList());
+    }
+
+    //    @Override
+//    public List<AircraftDTO> getAllAvailableAircraft() {
+//        return aircraftRepository.findAvailableAircraft(LocalDate.now()).stream().map(
+//                AircraftMapper::toAircraftDto).collect(Collectors.toList());
+//    }
 
 //    @Override
 //    public List<AircraftDTO> getAircraftByDepartureDate(LocalDate departureDate) {
