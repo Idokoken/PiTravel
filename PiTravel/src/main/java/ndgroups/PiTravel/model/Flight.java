@@ -20,7 +20,7 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String flightNumber;
     @Column(nullable = false)
     private Integer aircraftId;
@@ -30,7 +30,7 @@ public class Flight {
     private Integer arrivalAirportId;
 //    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private FLIGHT_STATUS flightStatus = FLIGHT_STATUS.SCHEDULE;
+    private FLIGHT_STATUS flightStatus = FLIGHT_STATUS.SCHEDULED;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)

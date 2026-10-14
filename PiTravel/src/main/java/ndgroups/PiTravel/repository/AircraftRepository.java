@@ -1,5 +1,6 @@
 package ndgroups.PiTravel.repository;
 
+import jakarta.validation.constraints.NotBlank;
 import ndgroups.PiTravel.model.Aircraft;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,8 @@ public interface AircraftRepository extends JpaRepository<Aircraft, Integer> {
     boolean existsByCode(String code);
     List<Aircraft>findByAircraftName(String aircraftName);
     List<Aircraft> findByCurrentAirportId(Integer id);
+
+    boolean existsByCodeAndIdNot(String code, Integer id);
 //    List<Aircraft>findByDepartureDate(LocalDate departureDate);
 //    List<Aircraft>findByDestination(String destination);
 //    @Query("SELECT t FROM Aircraft t WHERE " +

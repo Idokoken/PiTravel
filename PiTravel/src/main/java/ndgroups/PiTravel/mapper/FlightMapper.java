@@ -38,6 +38,7 @@ public class FlightMapper {
         if(request.getAircraftId() != null) flight.setAircraftId(request.getAircraftId());
         if(request.getDepartureAirportId() != null) flight.setDepartureAirportId(request.getDepartureAirportId());
         if(request.getArrivalAirportId() != null) flight.setArrivalAirportId(request.getArrivalAirportId());
+        if(request.getFlightStatus() != null) flight.setFlightStatus(request.getFlightStatus());
     }
 
 

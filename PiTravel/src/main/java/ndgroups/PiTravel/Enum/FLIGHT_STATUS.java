@@ -1,7 +1,7 @@
 package ndgroups.PiTravel.Enum;
 
 public enum FLIGHT_STATUS {
-    SCHEDULE,
+    SCHEDULED,
     BOARDING,
     DEPARTED,
     IN_AIR,

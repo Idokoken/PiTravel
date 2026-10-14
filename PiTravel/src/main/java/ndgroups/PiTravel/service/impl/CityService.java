@@ -41,7 +41,7 @@ public class CityService implements ICityService {
     public CityDTO updateCity(Integer id, CityRequest request) throws Exception {
         City city = cityRepository.findById(id)
                 .orElseThrow(() -> new Exception("city not found with the given Id"));
-        if (cityRepository.existsByCityCode(request.getCityCode())){
+        if (cityRepository.existsByCityCodeAndIdNot(request.getCityCode(), id)){
             throw new Exception("city already exist with the given CityCode");
         }
         City updatedCity = CityMapper.updateCityEntity(city, request);

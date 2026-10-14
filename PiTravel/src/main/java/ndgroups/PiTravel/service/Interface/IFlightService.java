@@ -9,13 +9,13 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IFlightService {
-    FlightDTO createFlight(FlightRequest request);
-    FlightDTO getFlightById(Integer id);
-    FlightDTO updateFlight(Integer id, FlightRequest request);
+    FlightDTO createFlight(FlightRequest request) throws Exception;
+    FlightDTO getFlightById(Integer id) throws Exception;
+    FlightDTO updateFlight(Integer id, FlightRequest request) throws Exception;
     List<FlightDTO> getAllFlights();
     Page<FlightDTO> getFlightByDepartureAndArrivalAirport(Integer departureAirportId,
                                                           Integer arrivalAirportId, Pageable pageable);
     List<FlightDTO> getAllAvailableFight();
-    FlightDTO changeFightStatus(Integer id, FLIGHT_STATUS status);
-    void deleteFlight(Integer id);
+    FlightDTO changeFightStatus(Integer id, FLIGHT_STATUS status) throws Exception;
+    void deleteFlight(Integer id) throws Exception;
 }

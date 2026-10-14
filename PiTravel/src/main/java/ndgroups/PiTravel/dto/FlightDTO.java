@@ -21,7 +21,7 @@ public class FlightDTO {
     private LocalDateTime arrivalTime;
     private FLIGHT_STATUS flightStatus;
     private Double lowestPrice;
-    private Integer lowestAvailableSeats;
+    private Integer AvailableSeats;
     private Instant createdAt;
     private Instant updatedAt;
 

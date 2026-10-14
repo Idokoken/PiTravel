@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("${api.prefix}/airport")
+@RequestMapping("/${api.prefix}/airport")
 public class AirportController {
     @Autowired
     private IAirportService airportService;
